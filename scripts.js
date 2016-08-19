@@ -3,7 +3,7 @@ function checkList(){
 	return arrayOfLocation;
 }
 
-//Gets the users location
+//Gets the users location using HTML5 geolocation
 function getUserLocation(){
 	return location;
 }
@@ -22,7 +22,7 @@ function notifyUser(message){
 }
 
 
-//Event listener that triggers a conditional if the latitude and longditude is met
+//Event listener that triggers a conditional if the latitude and longditude is met and calls location
 function watchUser(){
 	var getLocations = checkList();
 	//Event listener here that is delayed for phone
