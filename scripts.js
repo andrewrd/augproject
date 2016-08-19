@@ -26,7 +26,7 @@ function notifyUser(message){
 function watchUser(){
 	var getLocations = checkList();
 	//Event listener here that is delayed for phone
-	for(var i=0; i<getLocations.length(); i++){
+	for(var i=0; i<getLocations.length; i++){
 		if (compareLocation(getLocations[i], 20){
 			notifyUser();
 		}
