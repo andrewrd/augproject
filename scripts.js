@@ -1,4 +1,4 @@
-//returns an array of locations pulls from database or hardcode
+//returns an array of locations pulls from database or hardcoded array
 function checkList(){
 	return arrayOfLocation;
 }
