@@ -1,0 +1,18 @@
+/*Style Guide:
+- Use specific class tags as much as possible.
+- Define distinct sections of styling using comments.
+- camelCase style names.
+- Organise styles in top down structure.
+- Place helper classes inside global section.
+- If using media queries, place beneath main styling.
+  and reuse same defined sections.
+*/
+
+
+/* global styles */
+
+/* header */
+
+/* main */
+
+/* footer */
