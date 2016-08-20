@@ -10,30 +10,35 @@ function location(lat, longi){
 	this.longitude = longi;
 }
 
+var location = {};
+location[0] = {
+ latitude : 0,
+ longitude: 0
+};
 
-//Gets the users location using HTML5 geolocation
-function getUserLocation(){
-    var id, target, options;
-	var wakeLock;
+/*
+Gets the users location using HTML5 geolocation, takes and watches if the target is near
+- Takes location object as input
+*/
+function watchUserLocation(location){
+	var target = location;
+    var id, options;
+//	var wakeLock;
 
 	function success(pos) {
 	 var crd = pos.coords;
-
-	 if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
-	   console.log('Congratulations, you reached the target');
-	   navigator.geolocation.clearWatch(id);
-	   wakeLock.unlock();
-	 }
+		for(var i=0; i<target.length; i++){
+			 if (target[i].latitude === crd.latitude && target[i].longitude === crd.longitude) {
+			   console.log('Congratulations, you reached the target');
+			   navigator.geolocation.clearWatch(id);
+//			   wakeLock.unlock();
+			 }
+		}
 	}
 
 	function error(err) {
 		console.warn('ERROR(' + err.code + '): ' + err.message);
 	}
-
-	target = {
-	 latitude : 0,
-	 longitude: 0
-	};
 
 	options = {
 	 enableHighAccuracy: false,
@@ -41,36 +46,16 @@ function getUserLocation(){
 	 maximumAge: 0
 	};
 
-	wakeLock = window.navigator.requestWakeLock('gps');
+//	wakeLock = window.navigator.requestWakeLock('gps');
 	id = navigator.geolocation.watchPosition(success, error, options);
 }
 
 
-
-//Calculates the location based upon radius of area 
-function compareLocation(gps1, metres){
-	var user = getUserLocation();
-	var locations = checkList();
-	return true;
-}
-
 //Triggers a notification with message if near area
 function notifyUser(message){
-
+	return "You reach the location, here's some info"
 }
 
 
-//Event listener that triggers a conditional if the latitude and longditude is met and calls location
-function watchUser(){
-	var getLocations = checkList();
-	//Event listener here that is delayed for phone
-	for(var i=0; i<getLocations.length; i++){
-		/*if(compareLocation(getLocations[i], 20){
-			notifyUser();
-		} */
-	}
-
-}
-
-getUserLocation();
+watchUserLocation(location);
 
