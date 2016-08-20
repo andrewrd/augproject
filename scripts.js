@@ -4,19 +4,35 @@ function checkList(){
 	return arrayOfLocation;
 }
 
+function location(lat, longi){
+	this.latitude = lat;
+	this.longitude = longi;
+}
+
+
 //Gets the users location using HTML5 geolocation
 function getUserLocation(){
+    var latitude;
+    var longitude;
+    
 	var options = {
 	  enableHighAccuracy: true,
 	  timeout: 5000,
 	  maximumAge: 0
 	};
-
+    
+    if (!navigator.geolocation){
+        alert("<p>Geolocation is not supported by your browser</p>");
+        return;
+    }
+    
 	function success(pos) {
 	  var crd = pos.coords;
+      latitude = crd.latitude;
+	  longitude = crd.longitude;
 	  console.log('Your current position is:');
-	  console.log('Latitude : ' + crd.latitude);
-	  console.log('Longitude: ' + crd.longitude);
+	  console.log('Latitude : ' + latitude);
+	  console.log('Longitude: ' + longitude);
 	  console.log('More or less ' + crd.accuracy + ' meters.');
 	};
 
@@ -25,7 +41,10 @@ function getUserLocation(){
 	};
 
 	navigator.geolocation.getCurrentPosition(success, error, options);
+	return new location(latitude, longitude);
 }
+
+
 
 //Calculates the location based upon radius of area 
 function compareLocation(gps1, metres){
