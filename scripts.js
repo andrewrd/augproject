@@ -4,6 +4,7 @@ function checkList(){
 	return arrayOfLocation;
 }
 
+//added location object to store location values in
 function location(lat, longi){
 	this.latitude = lat;
 	this.longitude = longi;
@@ -12,36 +13,36 @@ function location(lat, longi){
 
 //Gets the users location using HTML5 geolocation
 function getUserLocation(){
-    var latitude;
-    var longitude;
-    
-	var options = {
-	  enableHighAccuracy: true,
-	  timeout: 5000,
-	  maximumAge: 0
-	};
-    
-    if (!navigator.geolocation){
-        alert("<p>Geolocation is not supported by your browser</p>");
-        return;
-    }
-    
+    var id, target, options;
+	var wakeLock;
+
 	function success(pos) {
-	  var crd = pos.coords;
-      latitude = crd.latitude;
-	  longitude = crd.longitude;
-	  console.log('Your current position is:');
-	  console.log('Latitude : ' + latitude);
-	  console.log('Longitude: ' + longitude);
-	  console.log('More or less ' + crd.accuracy + ' meters.');
-	};
+	 var crd = pos.coords;
+
+	 if (target.latitude === crd.latitude && target.longitude === crd.longitude) {
+	   console.log('Congratulations, you reached the target');
+	   navigator.geolocation.clearWatch(id);
+	   wakeLock.unlock();
+	 }
+	}
 
 	function error(err) {
-	  console.warn('ERROR(' + err.code + '): ' + err.message);
+		console.warn('ERROR(' + err.code + '): ' + err.message);
+	}
+
+	target = {
+	 latitude : 0,
+	 longitude: 0
 	};
 
-	navigator.geolocation.getCurrentPosition(success, error, options);
-	return new location(latitude, longitude);
+	options = {
+	 enableHighAccuracy: false,
+	 timeout: 5000,
+	 maximumAge: 0
+	};
+
+	wakeLock = window.navigator.requestWakeLock('gps');
+	id = navigator.geolocation.watchPosition(success, error, options);
 }
 
 
