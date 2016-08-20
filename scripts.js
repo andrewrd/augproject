@@ -23,12 +23,12 @@ Gets the users location using HTML5 geolocation, takes and watches if the target
 function watchUserLocation(location){
 
 	var output = document.getElementById("notification-container");
-	
+
 	if (!navigator.geolocation){
 		output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
 		return;
 	}
-	
+
 	var target = location;
     var id, options;
 //	var wakeLock;
@@ -36,18 +36,18 @@ function watchUserLocation(location){
 	function success(pos) {
 		var crd = pos.coords;
 		console.log(crd.latitude);
-	 
+
 		output.innerHTML = '<p>Latitude is ' + crd.latitude + '° <br>Longitude is ' + crd.longitude + '°</p>';
 
 		var img = new Image();
-     img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=13&size=300x300&sensor=false";
-
+    img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=13&size=300x300&sensor=false";
 		output.appendChild(img);
-	 
-	 
+
+
 		for(var i=0; i<target.length; i++){
 			 if (target[i].latitude === crd.latitude && target[i].longitude === crd.longitude) {
 			   console.log('Congratulations, you reached the target');
+				 document.getElementById("notification-sound").play();
 			   navigator.geolocation.clearWatch(id);
 //			   wakeLock.unlock();
 			 }
@@ -76,4 +76,3 @@ function notifyUser(message){
 
 
 watchUserLocation(location);
-

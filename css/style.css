@@ -36,8 +36,9 @@ header {
 
 /* main */
 
-.notification-container {
+#notification-container {
   margin: 10px auto 10px auto;
+  max-width: 900px;
 }
 
 .notification-text {
