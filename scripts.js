@@ -6,7 +6,6 @@ function checkList(){
 
 //Gets the users location using HTML5 geolocation
 function getUserLocation(){
-	//Gets the user location
 	var options = {
 	  enableHighAccuracy: true,
 	  timeout: 5000,
@@ -28,8 +27,6 @@ function getUserLocation(){
 	navigator.geolocation.getCurrentPosition(success, error, options);
 }
 
-//Gets user location
-
 //Calculates the location based upon radius of area 
 function compareLocation(gps1, metres){
 	var user = getUserLocation();
@@ -48,7 +45,7 @@ function watchUser(){
 	var getLocations = checkList();
 	//Event listener here that is delayed for phone
 	for(var i=0; i<getLocations.length; i++){
-/*		if(compareLocation(getLocations[i], 20){
+		/*if(compareLocation(getLocations[i], 20){
 			notifyUser();
 		} */
 	}
