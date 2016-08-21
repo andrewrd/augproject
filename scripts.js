@@ -12,6 +12,20 @@ function notifyUser(notificationTitle, notificationMessage, notificationImage){
 }
 
 //Outputs location information
+var sculpture1 = {name: "Statue of Livertree" , desc: "A statue made out of livertres", sculpLat: -33.779705, sculpLon:151.284646 }
+var sculpture2 = {name: "Splicer" , desc: "A statue that exemplifies the art of splicing", sculpLat: -33.779605, sculpLon:151.284616 }
+var sculpture3 = {name: "Hitmonlee" , desc: "A statue of one of the most powerful Pokemon", sculpLat: -33.779805, sculpLon:151.283616 }
+var locs = new Array(sculpture1,sculpture2,sculpture3);
+
+displayInfo(locs[0]);
+
+//Fills out the info card  with the statue name, and description
+function displayInfo(theSculpture) {
+	var theName = theSculpture.name;
+	var theDesc = theSculpture.desc;
+	document.getElementsByTagName("p")[0].innerHTML = theName;
+	document.getElementsByTagName("p")[1].innerHTML = theDesc;
+}
 
 //Location object to store location values in
 function location(lat, longi){
@@ -56,7 +70,7 @@ function watchUserLocation(location){
 		return;
 	}
     //Hardcoded target value for testing
-	var target = targetLoc;
+		var target = targetLoc;
     var id, options;
 //	var wakeLock;
 
