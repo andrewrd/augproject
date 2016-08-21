@@ -3,6 +3,15 @@ function checkList(){
 	return arrayOfLocation;
 }
 
+//Outputs notification text
+function notifyUser(notificationTitle, notificationMessage, notificationImage){
+	document.getElementById("notification-title").innerHTML = notificationTitle;
+	document.getElementById("notification-message").innerHTML = notificationMessage;
+	document.getElementById("notification-image").innerHTML = "";
+	document.getElementById("notification-image").appendChild(notificationImage);
+}
+
+//Outputs location information
 
 //Location object to store location values in
 function location(lat, longi){
@@ -22,12 +31,12 @@ function toRad(Value){
 //https://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
 function checkDistance(gps1, gps2){
     var R = 6378137; //Radius in metres
-    var distLat = toRad(gps2.latitude-gps1.latitude); 
+    var distLat = toRad(gps2.latitude-gps1.latitude);
     var distLong = toRad(gps2.longitude-gps1.longitude);
     var lat1 = toRad(gps1.latitude);
     var lat2 = toRad(gps2.latitude);
-    
-    
+
+
     var a = Math.sin(distLat/2) * Math.sin(distLat/2)+
             Math.cos(lat1) * Math.cos(lat2) *
             Math.sin(distLong/2) * Math.sin(distLong/2);
@@ -42,10 +51,8 @@ Gets the users location using HTML5 geolocation, takes and watches if the target
 */
 function watchUserLocation(location){
 
-	var output = document.getElementById("notification-container");
-
 	if (!navigator.geolocation){
-		output.innerHTML = "<p>Geolocation is not supported by your browser</p>";
+		notifyUser("Something went wrong!", "<p>Geolocation is not supported by your browser.</p>", "");
 		return;
 	}
     //Hardcoded target value for testing
@@ -56,26 +63,25 @@ function watchUserLocation(location){
 	function success(pos) {
 		var crd = pos.coords;
 		var currentLoc = new location(crd.latitude, crd.longitude);
-
-		output.innerHTML = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
-        
-        
-
 		var img = new Image();
-        img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=13&size=300x300&sensor=false";
-		output.appendChild(img);
-        console.log(checkDistance(currentLoc, target) + " metres away from target");
-        
-        //Check against only 1 target for now
-        if (checkDistance(currentLoc,target)<10){
-            console.log('Congratulations, you are within 10m from the target');
-            document.getElementById("notification-sound").play();
-            navigator.geolocation.clearWatch(id); 
-        }
+    img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=13&size=300x300&sensor=false";
+		var locationOutput = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
+
+		notifyUser("Located!", locationOutput, img);
+
+    console.log(checkDistance(currentLoc, target) + " metres away from target");
+
+    //Check against only 1 target for now
+    if (checkDistance(currentLoc,target)<10){
+        console.log('Congratulations, you are within 10m from the target');
+        document.getElementById("notification-sound").play();
+        navigator.geolocation.clearWatch(id);
+    }
 
 	}
 
 	function error(err) {
+		notifyUser("Something went wrong!", "<p>We were unable to locate you.</p>", "");
 		console.warn('ERROR(' + err.code + '): ' + err.message);
 	}
 
@@ -90,12 +96,4 @@ function watchUserLocation(location){
 }
 
 
-//Triggers a notification with message if near area
-function notifyUser(message){
-
-	return "You reach the location, here's some info";
-}
-
-
 watchUserLocation(location);
-
