@@ -1,7 +1,14 @@
-//returns an array of locations pulls from database or hardcoded array
-function checkList(){
-	return arrayOfLocation;
-}
+//Testing location mark
+var targetLoc = new location(-33.779705,151.284646);
+//Outputs location information
+var sculpture1 = {name: "Statue of Livertree" , desc: "A statue made out of livertres", sculpLat: -33.779705, sculpLon:151.284646 }
+var sculpture2 = {name: "Splicer" , desc: "A statue that exemplifies the art of splicing", sculpLat: -33.779605, sculpLon:151.284616 }
+var sculpture3 = {name: "Hitmonlee" , desc: "A statue of one of the most powerful Pokemon", sculpLat: -33.779805, sculpLon:151.283616 }
+var locs = new Array(sculpture1,sculpture2,sculpture3);
+
+displayInfo(locs[0]);
+
+var API_KEY = 'AIzaSyCNK44iJbw19tdl9VUZqKeGsKROIDeQZzY';
 
 //Outputs notification text
 function notifyUser(notificationTitle, notificationMessage, notificationImage){
@@ -10,8 +17,13 @@ function notifyUser(notificationTitle, notificationMessage, notificationImage){
 	document.getElementById("notification-image").innerHTML = "";
 	document.getElementById("notification-image").appendChild(notificationImage);
 }
-
-//Outputs location information
+//Fills out the info card  with the statue name, and description
+function displayInfo(theSculpture) {
+	var theName = theSculpture.name;
+	var theDesc = theSculpture.desc;
+	document.getElementsByTagName("p")[0].innerHTML = theName;
+	document.getElementsByTagName("p")[1].innerHTML = theDesc;
+}
 
 //Location object to store location values in
 function location(lat, longi){
@@ -19,8 +31,6 @@ function location(lat, longi){
 	this.longitude = longi;
 }
 
-//Testing location mark
-var targetLoc = new location(-33.779705,151.284646);
 
 //Helper function to convert degrees to radians
 function toRad(Value){
@@ -55,16 +65,17 @@ function watchUserLocation(location){
 		notifyUser("Something went wrong!", "<p>Geolocation is not supported by your browser.</p>", "");
 		return;
 	}
-    //Hardcoded target value for testing
-	var target = targetLoc;
+    //Hardcoded target value for testing, this pulls from global scope, should be from location
+		var target = targetLoc;
     var id, options;
+//Wakelock does not work, causes code to crash
 //	var wakeLock;
 
 	function success(pos) {
 		var crd = pos.coords;
 		var currentLoc = new location(crd.latitude, crd.longitude);
 		var img = new Image();
-    img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=13&size=300x300&sensor=false";
+    img.src = "https://maps.googleapis.com/maps/api/js?key=" + API_KEY + "staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=13&size=300x300&sensor=false";
 		var locationOutput = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
 
 		notifyUser("Located!", locationOutput, img);
