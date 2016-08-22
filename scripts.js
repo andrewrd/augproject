@@ -1,16 +1,5 @@
-//returns an array of locations pulls from database or hardcoded array
-function checkList(){
-	return arrayOfLocation;
-}
-
-//Outputs notification text
-function notifyUser(notificationTitle, notificationMessage, notificationImage){
-	document.getElementById("notification-title").innerHTML = notificationTitle;
-	document.getElementById("notification-message").innerHTML = notificationMessage;
-	document.getElementById("notification-image").innerHTML = "";
-	document.getElementById("notification-image").appendChild(notificationImage);
-}
-
+//Testing location mark
+var targetLoc = new location(-33.779705,151.284646);
 //Outputs location information
 var sculpture1 = {name: "Statue of Livertree" , desc: "A statue made out of livertres", sculpLat: -33.779705, sculpLon:151.284646 }
 var sculpture2 = {name: "Splicer" , desc: "A statue that exemplifies the art of splicing", sculpLat: -33.779605, sculpLon:151.284616 }
@@ -19,6 +8,13 @@ var locs = new Array(sculpture1,sculpture2,sculpture3);
 
 displayInfo(locs[0]);
 
+//Outputs notification text
+function notifyUser(notificationTitle, notificationMessage, notificationImage){
+	document.getElementById("notification-title").innerHTML = notificationTitle;
+	document.getElementById("notification-message").innerHTML = notificationMessage;
+	document.getElementById("notification-image").innerHTML = "";
+	document.getElementById("notification-image").appendChild(notificationImage);
+}
 //Fills out the info card  with the statue name, and description
 function displayInfo(theSculpture) {
 	var theName = theSculpture.name;
@@ -33,8 +29,6 @@ function location(lat, longi){
 	this.longitude = longi;
 }
 
-//Testing location mark
-var targetLoc = new location(-33.779705,151.284646);
 
 //Helper function to convert degrees to radians
 function toRad(Value){
@@ -69,9 +63,10 @@ function watchUserLocation(location){
 		notifyUser("Something went wrong!", "<p>Geolocation is not supported by your browser.</p>", "");
 		return;
 	}
-    //Hardcoded target value for testing
+    //Hardcoded target value for testing, this pulls from global scope, should be from location
 		var target = targetLoc;
     var id, options;
+//Wakelock does not work, causes code to crash
 //	var wakeLock;
 
 	function success(pos) {
