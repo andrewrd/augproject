@@ -75,7 +75,7 @@ function watchUserLocation(location){
 		var crd = pos.coords;
 		var currentLoc = new location(crd.latitude, crd.longitude);
 		var img = new Image();
-    img.src = "https://maps.googleapis.com/maps/api/js?key=" + API_KEY + "staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=13&size=300x300&sensor=false";
+  	  	img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=13&size=300x300&sensor=false" "&key=" + API_KEY;
 		var locationOutput = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
 
 		notifyUser("Located!", locationOutput, img);
