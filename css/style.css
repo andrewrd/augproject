@@ -77,7 +77,7 @@ header {
           animation: sk-circleBounceDelay 1.2s infinite ease-in-out both;
 }
 
-.location-container {
+#location-container {
   padding: 7px 15px 7px 15px;
   margin: 10px auto 10px auto;
   max-width: 900px;
@@ -85,6 +85,7 @@ header {
   border: 1px solid #BCAAA4;
   border-radius: 5px;
   box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+  display: none;
 }
 
 /* footer */
