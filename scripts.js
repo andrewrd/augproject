@@ -1,12 +1,14 @@
 //Testing location mark
 var targetLoc = new location(-33.779705,151.284646);
 //Outputs location information
-var sculpture1 = {name: "Statue of Livertree" , desc: "A statue made out of livertres", sculpLat: -33.779705, sculpLon:151.284646 }
-var sculpture2 = {name: "Splicer" , desc: "A statue that exemplifies the art of splicing", sculpLat: -33.779605, sculpLon:151.284616 }
-var sculpture3 = {name: "Hitmonlee" , desc: "A statue of one of the most powerful Pokemon", sculpLat: -33.779805, sculpLon:151.283616 }
-var locs = new Array(sculpture1,sculpture2,sculpture3);
+// var sculpture1 = {name: "Statue of Livertree" , desc: "A statue made out of livertres", sculpLat: -33.779705, sculpLon:151.284646 }
+// var sculpture2 = {name: "Splicer" , desc: "A statue that exemplifies the art of splicing", sculpLat: -33.779605, sculpLon:151.284616 }
+// var sculpture3 = {name: "Hitmonlee" , desc: "A statue of one of the most powerful Pokemon", sculpLat: -33.779805, sculpLon:151.283616 }
+// var locs = new Array(sculpture1,sculpture2,sculpture3);
+var e8cSculpture = new statue("Statue of Livertree", "A statue made out of livertres", -33.7743051, 151.1155864); //real coords
+var libStatue = new statue("Two Huggers", "two statues hugging with no clothes on", -33.7746828, 151.1139948); //real coords
 
-displayInfo(locs[0]);
+//displayInfo(locs[0]);
 
 var API_KEY = 'AIzaSyCNK44iJbw19tdl9VUZqKeGsKROIDeQZzY';
 
@@ -17,12 +19,15 @@ function notifyUser(notificationTitle, notificationMessage, notificationImage){
 	document.getElementById("notification-image").innerHTML = "";
 	document.getElementById("notification-image").appendChild(notificationImage);
 }
+
 //Fills out the info card  with the statue name, and description
 function displayInfo(theSculpture) {
 	var theName = theSculpture.name;
-	var theDesc = theSculpture.desc;
+	var theDesc = theSculpture.description;
+	document.getElementById("location-container").getElementsByTagName('h3')[0].innerHTML = theName;
 	document.getElementsByTagName("p")[0].innerHTML = theName;
 	document.getElementsByTagName("p")[1].innerHTML = theDesc;
+	document.getElementById("location-container").style.display = "block";
 }
 
 //Location object to store location values in
@@ -31,6 +36,17 @@ function location(lat, longi){
 	this.longitude = longi;
 }
 
+//statue object to store statues in
+function statue(name, desc, lat, longi) {
+	this.name = name;
+	this.description = desc;
+	this.latitude = lat;
+	this.longitude = longi;
+}
+//array of statue objects
+var statues = new Array(e8cSculpture,libStatue);
+
+//displayInfo(statues[0]);
 
 //Helper function to convert degrees to radians
 function toRad(Value){
@@ -83,11 +99,15 @@ function watchUserLocation(location){
     console.log(checkDistance(currentLoc, target) + " metres away from target");
 
     //Check against only 1 target for now
-    if (checkDistance(currentLoc,target)<10){
-        console.log('Congratulations, you are within 10m from the target');
-        document.getElementById("notification-sound").play();
-        navigator.geolocation.clearWatch(id);
-    }
+		for (var i = 0; i < statues.length; i++) {
+			var target = new location(statues[i].latitude, statues[i].longitude);
+			if (checkDistance(currentLoc,target)<10){
+	        console.log('Congratulations, you are within 10m from the target');
+					document.getElementById("notification-sound").play();
+					displayInfo(statues[i]);
+					navigator.geolocation.clearWatch(id);
+	    }
+		}
 
 	}
 
