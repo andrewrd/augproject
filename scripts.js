@@ -1,5 +1,3 @@
-//Testing location mark
-var targetLoc = new location(-33.779705,151.284646);
 //Outputs location information
 // var sculpture1 = {name: "Statue of Livertree" , desc: "A statue made out of livertres", sculpLat: -33.779705, sculpLon:151.284646 }
 // var sculpture2 = {name: "Splicer" , desc: "A statue that exemplifies the art of splicing", sculpLat: -33.779605, sculpLon:151.284616 }
@@ -68,6 +66,7 @@ function checkDistance(gps1, gps2){
             Math.sin(distLong/2) * Math.sin(distLong/2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var distance = R * c;
+		console.log("You are " + distance + "m away from this target")
     return distance; //Returns distance in metres
 }
 
@@ -81,9 +80,7 @@ function watchUserLocation(location){
 		notifyUser("Something went wrong!", "<p>Geolocation is not supported by your browser.</p>", "");
 		return;
 	}
-    //Hardcoded target value for testing, this pulls from global scope, should be from location
-		var target = targetLoc;
-    var id, options;
+  var id, options;
 //Wakelock does not work, causes code to crash
 //	var wakeLock;
 
@@ -91,12 +88,10 @@ function watchUserLocation(location){
 		var crd = pos.coords;
 		var currentLoc = new location(crd.latitude, crd.longitude);
 		var img = new Image();
-  	  	img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=17&size=300x300&sensor=false&key=" + API_KEY;
+  	img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=17&size=300x300&sensor=false&key=" + API_KEY;
 		var locationOutput = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
 
 		notifyUser("Located!", locationOutput, img);
-
-    console.log(checkDistance(currentLoc, target) + " metres away from target");
 
     //Check against only 1 target for now
 		for (var i = 0; i < statues.length; i++) {
