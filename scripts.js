@@ -5,10 +5,9 @@ var libStatue = new statue("Two Huggers", "two statues hugging with no clothes o
 var audio = document.getElementById("notification-sound");
 audio.muted = true;
 var soundButton = document.getElementById("sound-toggle");
-soundButton.onclick = toggleSound();
 
-//Mutes and unmutes the notification sound
-function toggleSound() {
+//Mutes and unmutes sound on click
+soundButton.onclick = function toggleSound() {
 	if (audio.muted) {
 		audio.muted = false;
 		//audio.play and audio.pause are requied in order for sound to work on mobile
@@ -23,7 +22,6 @@ function toggleSound() {
 
 var neighbour = new statue("JD Neighbour", "JD's neighbour's house", -33.7474206, 150.8278817); //real coords
 
-
 var API_KEY = 'AIzaSyCNK44iJbw19tdl9VUZqKeGsKROIDeQZzY';
 
 //Outputs notification text
@@ -31,7 +29,7 @@ function notifyUser(notificationTitle, notificationMessage, notificationImage){
 	document.getElementById("notification-title").innerHTML = notificationTitle;
 	document.getElementById("notification-message").innerHTML = notificationMessage;
 	document.getElementById("notification-image").innerHTML = "";
-	//document.getElementById("notification-image").appendChild(notificationImage);
+	document.getElementById("notification-image").appendChild(notificationImage);
 }
 
 //Fills out the info card  with the statue name, and description
