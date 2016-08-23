@@ -1,7 +1,6 @@
 //Outputs location information
 var e8cSculpture = new statue("Statue of Livertree", "A statue made out of livertres", -33.7743051, 151.1155864); //real coords
 var libStatue = new statue("Two Huggers", "two statues hugging with no clothes on", -33.7746828, 151.1139948); //real coords
-<<<<<<< HEAD
 
 var audio = document.getElementById("notification-sound");
 audio.muted = true;
@@ -21,9 +20,9 @@ function toggleSound() {
 		this.innerHTML = "UNMUTE";
 	}
 }
-=======
+
 var neighbour = new statue("JD Neighbour", "JD's neighbour's house", -33.7474206, 150.8278817); //real coords
->>>>>>> origin/master
+
 
 var API_KEY = 'AIzaSyCNK44iJbw19tdl9VUZqKeGsKROIDeQZzY';
 
