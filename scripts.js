@@ -6,7 +6,24 @@
 var e8cSculpture = new statue("Statue of Livertree", "A statue made out of livertres", -33.7743051, 151.1155864); //real coords
 var libStatue = new statue("Two Huggers", "two statues hugging with no clothes on", -33.7746828, 151.1139948); //real coords
 
-//displayInfo(locs[0]);
+var audio = document.getElementById("notification-sound");
+audio.muted = true;
+var soundButton = document.getElementById("sound-toggle");
+soundButton.onclick = toggleSound();
+
+//Mutes and unmutes the notification sound
+function toggleSound() {
+	if (audio.muted) {
+		audio.muted = false;
+		//audio.play and audio.pause are requied in order for sound to work on mobile
+		audio.play();
+		audio.pause();
+		this.innerHTML = "MUTE";
+	} else {
+		audio.muted = true;
+		this.innerHTML = "UNMUTE";
+	}
+}
 
 var API_KEY = 'AIzaSyCNK44iJbw19tdl9VUZqKeGsKROIDeQZzY';
 
@@ -15,7 +32,7 @@ function notifyUser(notificationTitle, notificationMessage, notificationImage){
 	document.getElementById("notification-title").innerHTML = notificationTitle;
 	document.getElementById("notification-message").innerHTML = notificationMessage;
 	document.getElementById("notification-image").innerHTML = "";
-	document.getElementById("notification-image").appendChild(notificationImage);
+	//document.getElementById("notification-image").appendChild(notificationImage);
 }
 
 //Fills out the info card  with the statue name, and description
@@ -66,7 +83,7 @@ function checkDistance(gps1, gps2){
             Math.sin(distLong/2) * Math.sin(distLong/2);
     var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
     var distance = R * c;
-		console.log("You are " + distance + "m away from this target")
+		console.log("You are " + distance + "m away from this target");
     return distance; //Returns distance in metres
 }
 
@@ -98,7 +115,7 @@ function watchUserLocation(location){
 			var target = new location(statues[i].latitude, statues[i].longitude);
 			if (checkDistance(currentLoc,target)<10){
 	        console.log('Congratulations, you are within 10m from the target');
-					document.getElementById("notification-sound").play();
+					audio.play();
 					displayInfo(statues[i]);
 					navigator.geolocation.clearWatch(id);
 	    }
