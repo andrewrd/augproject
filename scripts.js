@@ -1,10 +1,7 @@
 //Outputs location information
-// var sculpture1 = {name: "Statue of Livertree" , desc: "A statue made out of livertres", sculpLat: -33.779705, sculpLon:151.284646 }
-// var sculpture2 = {name: "Splicer" , desc: "A statue that exemplifies the art of splicing", sculpLat: -33.779605, sculpLon:151.284616 }
-// var sculpture3 = {name: "Hitmonlee" , desc: "A statue of one of the most powerful Pokemon", sculpLat: -33.779805, sculpLon:151.283616 }
-// var locs = new Array(sculpture1,sculpture2,sculpture3);
 var e8cSculpture = new statue("Statue of Livertree", "A statue made out of livertres", -33.7743051, 151.1155864); //real coords
 var libStatue = new statue("Two Huggers", "two statues hugging with no clothes on", -33.7746828, 151.1139948); //real coords
+<<<<<<< HEAD
 
 var audio = document.getElementById("notification-sound");
 audio.muted = true;
@@ -24,6 +21,9 @@ function toggleSound() {
 		this.innerHTML = "UNMUTE";
 	}
 }
+=======
+var neighbour = new statue("JD Neighbour", "JD's neighbour's house", -33.7474206, 150.8278817); //real coords
+>>>>>>> origin/master
 
 var API_KEY = 'AIzaSyCNK44iJbw19tdl9VUZqKeGsKROIDeQZzY';
 
@@ -59,7 +59,7 @@ function statue(name, desc, lat, longi) {
 	this.longitude = longi;
 }
 //array of statue objects
-var statues = new Array(e8cSculpture,libStatue);
+var statues = new Array(e8cSculpture,libStatue, neighbour);
 
 //displayInfo(statues[0]);
 
