@@ -3,7 +3,7 @@ var e8cSculpture = new statue("Statue of Livertree", "A statue made out of liver
 var libStatue = new statue("Two Huggers", "two statues hugging with no clothes on", -33.7746828, 151.1139948); //real coords
 var e6aLobby = new statue("E6A Lobby", "The lobby of E6a", -33.7743857, 151.1126926); //Real Coordinates
 var museBuilding = new statue("Muse", "The entry to the MUSE building", -33.7755254, 151.1156686); //Real Coordinates
-var paceRoom = new statue("PACE ROOM", "The room where we go for the PACE unit", -33.77525269999996, 151.1157988)
+var paceRoom = new statue("PACE ROOM", "The room where we go for the PACE unit", -33.77525269999996, 151.1157988);
 
 var audio = document.getElementById("notification-sound");
 audio.muted = true;
@@ -13,9 +13,7 @@ var soundButton = document.getElementById("sound-toggle");
 soundButton.onclick = function toggleSound() {
     if (audio.muted) {
         audio.muted = false;
-        //audio.play and audio.pause are requied in order for sound to work on mobile
-        audio.play();
-        audio.pause();
+        audio.load();
         this.innerHTML = "MUTE";
     } else {
         audio.muted = true;
