@@ -1,13 +1,34 @@
+//Google API Key, for development purposes all localmachines are allowed. Change this in production.
+var API_KEY = 'AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40';
+
 //Outputs location information
+//Below will eventually be removed as this is hosted on: https://docs.google.com/spreadsheets/d/1euM71LMUJfVAMVsmXqGpsKhmqQZJgPd8UgGbBihU2e8/edit#gid=0
 var e8cSculpture = new statue("Statue of Livertree", "A statue made out of livertres", -33.7743051, 151.1155864); //real coords
 var libStatue = new statue("Two Huggers", "two statues hugging with no clothes on", -33.7746828, 151.1139948); //real coords
 var e6aLobby = new statue("E6A Lobby", "The lobby of E6a", -33.7743857, 151.1126926); //Real Coordinates
 var museBuilding = new statue("Muse", "The entry to the MUSE building", -33.7755254, 151.1156686); //Real Coordinates
 var paceRoom = new statue("PACE ROOM", "The room where we go for the PACE unit", -33.77525269999996, 151.1157988);
+var neighbour = new statue("JD Neighbour", "JD's neighbour's house", -33.7474206, 150.8278817); //real coords
 
 var audio = document.getElementById("notification-sound");
 audio.muted = true;
 var soundButton = document.getElementById("sound-toggle");
+
+
+//Database link, originally to the GoogleAPI but now the CSV due to bugs
+var csv = "https://docs.google.com/spreadsheets/d/1euM71LMUJfVAMVsmXqGpsKhmqQZJgPd8UgGbBihU2e8/pub?output=csv";
+ 
+//Sends a get request, responds with xmlhttp.responsText
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+//This request should return a CSV file as the GoogleAPI was returning an error, parse this into JSON using http://papaparse.com/
+console.log(httpGet(csv));
 
 //Mutes and unmutes sound on click
 soundButton.onclick = function toggleSound() {
@@ -21,9 +42,6 @@ soundButton.onclick = function toggleSound() {
     }
 }
 
-var neighbour = new statue("JD Neighbour", "JD's neighbour's house", -33.7474206, 150.8278817); //real coords
-
-var API_KEY = 'AIzaSyCNK44iJbw19tdl9VUZqKeGsKROIDeQZzY';
 
 //Outputs notification text
 function notifyUser(notificationTitle, notificationMessage, notificationImage) {
