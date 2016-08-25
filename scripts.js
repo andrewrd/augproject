@@ -1,15 +1,6 @@
 //Google API Key, for development purposes all localmachines are allowed. Change this in production.
 var API_KEY = 'AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40';
 
-//Outputs location information
-//Below will eventually be removed as this is hosted on: https://docs.google.com/spreadsheets/d/1euM71LMUJfVAMVsmXqGpsKhmqQZJgPd8UgGbBihU2e8/edit#gid=0
-//var e8cSculpture = new statue("Statue of Livertree", "A statue made out of livertres", -33.7743051, 151.1155864); //real coords
-//var libStatue = new statue("Two Huggers", "two statues hugging with no clothes on", -33.7746828, 151.1139948); //real coords
-//var e6aLobby = new statue("E6A Lobby", "The lobby of E6a", -33.7743857, 151.1126926); //Real Coordinates
-//var museBuilding = new statue("Muse", "The entry to the MUSE building", -33.7755254, 151.1156686); //Real Coordinates
-//var paceRoom = new statue("PACE ROOM", "The room where we go for the PACE unit", -33.77525269999996, 151.1157988);
-//var neighbour = new statue("JD Neighbour", "JD's neighbour's house", -33.7474206, 150.8278817); //real coords
-
 //retrieves the audio element id
 var audio = document.getElementById("notification-sound");
 //sets audio to muted by default
@@ -17,8 +8,8 @@ audio.muted = true;
 //retrieves mute button id
 var soundButton = document.getElementById("sound-toggle");
 
-
-//Pulls the google sheet information using the Google API
+/* Pulls the google sheet information using the Google API
+This is hosted on: https://docs.google.com/spreadsheets/d/1euM71LMUJfVAMVsmXqGpsKhmqQZJgPd8UgGbBihU2e8/edit#gid=0 */
 var dblink = "https://sheets.googleapis.com/v4/spreadsheets/1euM71LMUJfVAMVsmXqGpsKhmqQZJgPd8UgGbBihU2e8?includeGridData=true&fields=sheets%2Fdata%2FrowData%2Fvalues%2FuserEnteredValue&key=" + API_KEY;
 
 //Sends a get request to the user, should be a callback but update this when possible
@@ -55,12 +46,10 @@ function createArrayLoc(){
     for (item in cursor){
         locations.push(cursor[item].values);
     }
-    console.log(locations);
+    
     for(var i = 0; i<locations.length; i++){
         store.push(locations[i]);
     }
-    //Clears locations to traverse further
-    console.log(store);
 
     for(var i = 0; i<store.length; i++){
         for(var b = 0; b<store[i].length; b++){
@@ -73,7 +62,7 @@ function createArrayLoc(){
     }
     //Locations2 contains
     return locations2;
-    //this should return an array of values
+    //this should return an array of values for each location
 }
 
 //call that fills locations2
@@ -148,10 +137,9 @@ function checkDistance(gps1, gps2) {
     return distance; //Returns distance in metres
 }
 
-/*
-Gets the users location using HTML5 geolocation, takes and watches if the target is near
-- Takes location object as input
-*/
+
+//Gets the users location using HTML5 geolocation, takes and watches if the target is near
+//Takes location object as input
 function watchUserLocation(location) {
 
     if (!navigator.geolocation) {
@@ -195,7 +183,7 @@ function watchUserLocation(location) {
          maximumAge: 0
     };
 
-    //	wakeLock = window.navigator.requestWakeLock('gps');
+    //wakeLock = window.navigator.requestWakeLock('gps');
     id = navigator.geolocation.watchPosition(success, error, options);
 }
 
