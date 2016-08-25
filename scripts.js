@@ -16,7 +16,7 @@ var soundButton = document.getElementById("sound-toggle");
 
 
 //Pulls the google sheet information using the Google API
-var db = "https://sheets.googleapis.com/v4/spreadsheets/1euM71LMUJfVAMVsmXqGpsKhmqQZJgPd8UgGbBihU2e8?includeGridData=true&fields=sheets%2Fdata%2FrowData%2Fvalues%2FuserEnteredValue&key=" + API_KEY;
+var dblink = "https://sheets.googleapis.com/v4/spreadsheets/1euM71LMUJfVAMVsmXqGpsKhmqQZJgPd8UgGbBihU2e8?includeGridData=true&fields=sheets%2Fdata%2FrowData%2Fvalues%2FuserEnteredValue&key=" + API_KEY;
 
 //Sends a get request to the user, should be a callback but update this when possible
 function httpGet(theUrl)
@@ -27,8 +27,60 @@ function httpGet(theUrl)
     return xmlHttp.responseText;
 }
 
+//statue object to store statues in
+function statue(name, desc, lat, longi) {
+    this.name = name;
+    this.description = desc;
+    this.latitude = lat;
+    this.longitude = longi;
+}
+
 //Prints output in json in console
-console.log(httpGet(db));
+var database = JSON.parse(httpGet(dblink));
+var cursor = database.sheets[0].data[0].rowData;
+
+//Creates an array of locations, traversing the array to the exact values needed for the statue function 
+//use this to create the array, locations2 returns a json file.
+function createArrayLoc(){
+var locations = [];
+var store = [];
+var locations2 = [];
+
+    for (item in cursor){
+        locations.push(cursor[item].values);
+    }
+    console.log(locations);
+    for(var i = 0; i<locations.length; i++){
+        store.push(locations[i]);
+    }
+    //Clears locations to traverse further
+    console.log(store);
+
+    for(var i = 0; i<store.length; i++){
+        for(var b = 0; b<store[i].length; b++){
+            if(store[i][b].userEnteredValue.stringValue == undefined){
+                locations2.push(store[i][b].userEnteredValue.numberValue);
+            } else {
+                locations2.push(store[i][b].userEnteredValue.stringValue);
+            }
+        }
+    }
+    //Locations2 contains 
+    return locations2;
+    //this should return an array of values
+}
+
+//array of statue objects
+
+var statues = new Array(e8cSculpture, libStatue, neighbour, e6aLobby, paceRoom, museBuilding);
+console.log(createArrayLoc());
+//var statues = [];
+/* This is meant to iterate and locate targets
+for(var i = 0; i<locations2.length; i+4){
+    statues.push(statue(locations2[i], locations2[i+1], locations2[i+2], locations2[i+3]));
+}
+*/
+
 
 //Mutes and unmutes sound on click
 soundButton.onclick = function toggleSound() {
@@ -66,18 +118,6 @@ function location(lat, longi) {
     this.latitude = lat;
     this.longitude = longi;
 }
-
-//statue object to store statues in
-function statue(name, desc, lat, longi) {
-    this.name = name;
-    this.description = desc;
-    this.latitude = lat;
-    this.longitude = longi;
-}
-//array of statue objects
-var statues = new Array(e8cSculpture, libStatue, neighbour, e6aLobby, paceRoom, museBuilding);
-
-//displayInfo(statues[0]);
 
 //Helper function to convert degrees to radians
 function toRad(Value) {
