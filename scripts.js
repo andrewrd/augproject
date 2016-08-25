@@ -15,10 +15,10 @@ audio.muted = true;
 var soundButton = document.getElementById("sound-toggle");
 
 
-//Database link, originally to the GoogleAPI but now the CSV due to bugs
-var csv = "https://docs.google.com/spreadsheets/d/1euM71LMUJfVAMVsmXqGpsKhmqQZJgPd8UgGbBihU2e8/pub?output=csv";
- 
-//Sends a get request, responds with xmlhttp.responsText
+//Pulls the google sheet information using the Google API
+var db = "https://sheets.googleapis.com/v4/spreadsheets/1euM71LMUJfVAMVsmXqGpsKhmqQZJgPd8UgGbBihU2e8?includeGridData=true&fields=sheets%2Fdata%2FrowData%2Fvalues%2FuserEnteredValue&key=" + API_KEY;
+
+//Sends a get request to the user, should be a callback but update this when possible
 function httpGet(theUrl)
 {
     var xmlHttp = new XMLHttpRequest();
@@ -27,8 +27,8 @@ function httpGet(theUrl)
     return xmlHttp.responseText;
 }
 
-//This request should return a CSV file as the GoogleAPI was returning an error, parse this into JSON using http://papaparse.com/
-console.log(httpGet(csv));
+//Prints output in json in console
+console.log(httpGet(db));
 
 //Mutes and unmutes sound on click
 soundButton.onclick = function toggleSound() {
