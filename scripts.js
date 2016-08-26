@@ -22,8 +22,9 @@ function httpGet(theUrl)
 }
 
 //statue object to store statues in
-function statue(name, desc, lat, longi) {
+function statue(name, year, desc, lat, longi) {
     this.name = name;
+    this.year = year;
     this.description = desc;
     this.latitude = lat;
     this.longitude = longi;
@@ -46,7 +47,7 @@ function createArrayLoc(){
     for (item in cursor){
         locations.push(cursor[item].values);
     }
-    
+
     for(var i = 0; i<locations.length; i++){
         store.push(locations[i]);
     }
@@ -72,8 +73,8 @@ createArrayLoc();
 var statues = [];
 
 //iterates over locations2, creates objects from the values and stores in statues
-for (var i = 0; i <locations2.length; i+=4) {
-  statues.push(new statue(locations2[i], locations2[i+1],locations2[i+2], locations2[i+3]));
+for (var i = 0; i <locations2.length; i+=5) {
+  statues.push(new statue(locations2[i], locations2[i+1],locations2[i+2], locations2[i+3], locations2[i+4]));
 }
 
 //Mutes and unmutes sound on click
@@ -101,9 +102,10 @@ function notifyUser(notificationTitle, notificationMessage, notificationImage) {
 function displayInfo(theSculpture) {
     var theName = theSculpture.name;
     var theDesc = theSculpture.description;
+    var theYear = theSculpture.year;
     document.getElementById("location-container").getElementsByTagName('h3')[0].innerHTML = theName;
-    document.getElementsByTagName("p")[0].innerHTML = theName;
-    document.getElementsByTagName("p")[1].innerHTML = theDesc;
+    document.getElementById("location-container").getElementsByTagName("p")[0].innerHTML = theYear;
+    document.getElementById("location-container").getElementsByTagName("p")[1].innerHTML = theDesc;
     document.getElementById("location-container").style.display = "block";
 }
 
