@@ -26,10 +26,28 @@ header {
   padding: 7px 15px 7px 15px;
   margin: 0 auto 0 auto;
   max-width: 900px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .header-container h1 {
   margin: 0;
+  display: inline;
+}
+
+#sound-toggle {
+  display: inline;
+  background-color: white;
+  border: 0px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+#sound-toggle:hover {
+  background-color: black;
+  color: white;
+  border: 0px;
 }
 
 /* main */
