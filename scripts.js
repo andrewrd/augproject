@@ -156,10 +156,28 @@ function watchUserLocation(location) {
         var crd = pos.coords;
         var currentLoc = new location(crd.latitude, crd.longitude);
         var img = new Image();
-        img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=17&size=300x300&sensor=false&key=" + API_KEY;
+        //img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=17&size=300x300&sensor=false&key=" + API_KEY;
+
         var locationOutput = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
 
         notifyUser("Located!", locationOutput, img);
+
+        //Google Maps information added
+
+        var myLatLng = {lat:pos.coords.latitude, lng: pos.coords.longitude};
+        //Zooms in the map
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 20,
+        center: myLatLng
+        });
+
+
+        var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'This is you!'
+        });
 
         //Check current location against the statues array
         for (var i = 0; i < statues.length; i++) {
@@ -184,10 +202,18 @@ function watchUserLocation(location) {
          timeout: 5000,
          maximumAge: 0
     };
-
     //wakeLock = window.navigator.requestWakeLock('gps');
     id = navigator.geolocation.watchPosition(success, error, options);
 }
 
 
 watchUserLocation(location);
+
+
+
+
+
+
+
+
+

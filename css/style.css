@@ -51,7 +51,16 @@ header {
 }
 
 /* main */
+#map {
+  width: 100%;
+  height: 100%;
+}
 
+#map-container {
+  margin:0 auto;
+  width:500px;
+  height:500px;
+}
 #notification-container {
   margin: 10px auto 10px auto;
   max-width: 900px;
