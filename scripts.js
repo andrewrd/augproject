@@ -73,7 +73,7 @@ function getCookie(cname) {
 }
 
 //saves array into cookie
-saveCookie(saveArray) {
+function saveCookie(saveArray) {
   var cookieString = saveArray.join();
   document.cookie="foundLocations=" + cookieString + "; expires=" + expiry.toGMTString();
 }
