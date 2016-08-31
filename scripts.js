@@ -1,3 +1,5 @@
+//usersessions branch
+
 //Google API Key, for development purposes all localmachines are allowed. Change this in production.
 var API_KEY = 'AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40';
 
@@ -38,6 +40,47 @@ var cursor = database.sheets[0].data[0].rowData;
 //use this to create the array, locations2 returns a json file.
 
 var locations2 = [];
+var foundLocationNames;
+
+expiry = new Date();
+//Date format = Days/hours/minutes/seconds/milliseconds
+//Sets expiry to 10 days from creation
+expiry.setTime(expiry.getTime()+(10*24*60*60*1000));
+
+
+function checkCookie() {
+  if (document.cookie.indexOf("foundLocations") >= 0) {
+    foundLocationNames = getCookie("foundLocations").split(",");
+    console.log(foundLocationNames);
+  } else {
+    document.cookie="foundLocations=; expires=" + expiry.toGMTString();
+  }
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+//saves array into cookie
+saveCookie(saveArray) {
+  var cookieString = saveArray.join();
+  document.cookie="foundLocations=" + cookieString + "; expires=" + expiry.toGMTString();
+}
+
+
+//checks that a cookie exists.
+checkCookie();
 
 function createArrayLoc(){
 
@@ -71,11 +114,33 @@ createArrayLoc();
 
 //instantiates a new statues array to store data from googledoc as statue objects
 var statues = [];
+var foundStatues = [];
 
 //iterates over locations2, creates objects from the values and stores in statues
 for (var i = 0; i <locations2.length; i+=5) {
   statues.push(new statue(locations2[i], locations2[i+1],locations2[i+2], locations2[i+3], locations2[i+4]));
 }
+
+
+//removes all found locations from the statue array, adds them to the foundStatues array
+function removeFound(foundLocs, target, foundStatues){
+  for (var i = 0; i < foundLocs.length; i++) {
+    for (var k = 0; k < target.length; k++) {
+      if (foundLocs[i] == target[k].name) {
+        foundStatues.push(target[k]);
+        removeStatue(target, k);
+      }
+    }
+  }
+}
+
+//removes the statue at targetIndex from the targetArray
+function removeStatue(targetArray, targetIndex) {
+  targetArray.splice(targetIndex, 1);
+}
+
+removeFound(foundLocationNames, statues, foundStatues);
+
 
 //Mutes and unmutes sound on click
 soundButton.onclick = function toggleSound() {
@@ -186,7 +251,12 @@ function watchUserLocation(location) {
                 console.log('Congratulations, you are within 10m from the target');
                 audio.play();
                 displayInfo(statues[i]);
-                navigator.geolocation.clearWatch(id);
+                //add found locations name to array
+                foundLocationNames.push(statues[i].name)
+                //add found locations to foundStatues, and remove from statues
+                removeFound(foundLocationNames, statues, foundStatues);
+                //saves cookie each time a location is found
+                saveCookie(foundLocationNames);
             }
         }
 
@@ -208,12 +278,3 @@ function watchUserLocation(location) {
 
 
 watchUserLocation(location);
-
-
-
-
-
-
-
-
-
