@@ -115,6 +115,16 @@ header {
   display: none;
 }
 
+.emph {
+    color: red;
+}
+
+.close {
+  float: right;
+  font-size: 12px;
+  font-weight:bold;
+}
+
 /* footer */
 
 /* animations */

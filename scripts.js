@@ -89,6 +89,16 @@ soundButton.onclick = function toggleSound() {
     }
 }
 
+//displays a nice noty notification at top of screen
+function notyMessage(statue) {
+  $.noty.defaults.killer = true; //closes existing notys
+    noty({
+       text: 'Congratulations, you found <span class = "emph">' + statue.name + '</span>. <span class = "close">X</span> ',
+       layout: 'topCenter',
+       closeWith: ['click'],
+       type: 'success'
+    });
+}
 
 //Outputs notification text
 function notifyUser(notificationTitle, notificationMessage, notificationImage) {
@@ -183,6 +193,7 @@ function watchUserLocation(location) {
         for (var i = 0; i < statues.length; i++) {
             var target = new location(statues[i].latitude, statues[i].longitude);
             if (checkDistance(currentLoc, target) < 10) {
+                notyMessage(statues[i]);
                 console.log('Congratulations, you are within 10m from the target');
                 audio.play();
                 displayInfo(statues[i]);
