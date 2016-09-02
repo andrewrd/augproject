@@ -1,3 +1,5 @@
+//usersessions branch
+
 //Google API Key, for development purposes all localmachines are allowed. Change this in production.
 var API_KEY = 'AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40';
 
@@ -38,6 +40,47 @@ var cursor = database.sheets[0].data[0].rowData;
 //use this to create the array, locations2 returns a json file.
 
 var locations2 = [];
+var foundLocationNames;
+
+expiry = new Date();
+//Date format = Days/hours/minutes/seconds/milliseconds
+//Sets expiry to 10 days from creation
+expiry.setTime(expiry.getTime()+(10*24*60*60*1000));
+
+
+function checkCookie() {
+  if (document.cookie.indexOf("foundLocations") >= 0) {
+    foundLocationNames = getCookie("foundLocations").split(",");
+    console.log(foundLocationNames);
+  } else {
+    document.cookie="foundLocations=; expires=" + expiry.toGMTString();
+  }
+}
+
+function getCookie(cname) {
+  var name = cname + "=";
+  var ca = document.cookie.split(';');
+  for(var i = 0; i < ca.length; i++) {
+    var c = ca[i];
+    while (c.charAt(0) == ' ') {
+      c = c.substring(1);
+    }
+    if (c.indexOf(name) == 0) {
+      return c.substring(name.length, c.length);
+    }
+  }
+  return "";
+}
+
+//saves array into cookie
+function saveCookie(saveArray) {
+  var cookieString = saveArray.join();
+  document.cookie="foundLocations=" + cookieString + "; expires=" + expiry.toGMTString();
+}
+
+
+//checks that a cookie exists.
+checkCookie();
 
 function createArrayLoc(){
 
@@ -71,11 +114,33 @@ createArrayLoc();
 
 //instantiates a new statues array to store data from googledoc as statue objects
 var statues = [];
+var foundStatues = [];
 
 //iterates over locations2, creates objects from the values and stores in statues
 for (var i = 0; i <locations2.length; i+=5) {
   statues.push(new statue(locations2[i], locations2[i+1],locations2[i+2], locations2[i+3], locations2[i+4]));
 }
+
+
+//removes all found locations from the statue array, adds them to the foundStatues array
+function removeFound(foundLocs, target, foundStatues){
+  for (var i = 0; i < foundLocs.length; i++) {
+    for (var k = 0; k < target.length; k++) {
+      if (foundLocs[i] == target[k].name) {
+        foundStatues.push(target[k]);
+        removeStatue(target, k);
+      }
+    }
+  }
+}
+
+//removes the statue at targetIndex from the targetArray
+function removeStatue(targetArray, targetIndex) {
+  targetArray.splice(targetIndex, 1);
+}
+
+removeFound(foundLocationNames, statues, foundStatues);
+
 
 //Mutes and unmutes sound on click
 soundButton.onclick = function toggleSound() {
@@ -87,6 +152,17 @@ soundButton.onclick = function toggleSound() {
         audio.muted = true;
         this.innerHTML = "UNMUTE";
     }
+}
+
+//displays a nice noty notification at top of screen
+function notyMessage(statue) {
+  $.noty.defaults.killer = true; //closes existing notys
+    noty({
+       text: 'Congratulations, you found <span class = "emph">' + statue.name + '</span>. <span class = "close">X</span> ',
+       layout: 'topCenter',
+       closeWith: ['click'],
+       type: 'success'
+    });
 }
 
 //Outputs notification text
@@ -156,19 +232,43 @@ function watchUserLocation(location) {
         var crd = pos.coords;
         var currentLoc = new location(crd.latitude, crd.longitude);
         var img = new Image();
-        img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=17&size=300x300&sensor=false&key=" + API_KEY;
+        //img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=17&size=300x300&sensor=false&key=" + API_KEY;
+
         var locationOutput = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
 
         notifyUser("Located!", locationOutput, img);
+
+        //Google Maps information added
+
+        var myLatLng = {lat:pos.coords.latitude, lng: pos.coords.longitude};
+        //Zooms in the map
+
+        var map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 20,
+        center: myLatLng
+        });
+
+
+        var marker = new google.maps.Marker({
+        position: myLatLng,
+        map: map,
+        title: 'This is you!'
+        });
 
         //Check current location against the statues array
         for (var i = 0; i < statues.length; i++) {
             var target = new location(statues[i].latitude, statues[i].longitude);
             if (checkDistance(currentLoc, target) < 10) {
+                notyMessage(statues[i]);
                 console.log('Congratulations, you are within 10m from the target');
                 audio.play();
                 displayInfo(statues[i]);
-                navigator.geolocation.clearWatch(id);
+                //add found locations name to array
+                foundLocationNames.push(statues[i].name)
+                //add found locations to foundStatues, and remove from statues
+                removeFound(foundLocationNames, statues, foundStatues);
+                //saves cookie each time a location is found
+                saveCookie(foundLocationNames);
             }
         }
 
@@ -184,7 +284,6 @@ function watchUserLocation(location) {
          timeout: 5000,
          maximumAge: 0
     };
-
     //wakeLock = window.navigator.requestWakeLock('gps');
     id = navigator.geolocation.watchPosition(success, error, options);
 }
