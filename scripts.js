@@ -1,4 +1,3 @@
-//usersessions branch
 
 //Google API Key, for development purposes all localmachines are allowed. Change this in production.
 var API_KEY = 'AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40';
@@ -40,7 +39,7 @@ var cursor = database.sheets[0].data[0].rowData;
 //use this to create the array, locations2 returns a json file.
 
 var locations2 = [];
-var foundLocationNames;
+var foundLocationNames = [];
 
 expiry = new Date();
 //Date format = Days/hours/minutes/seconds/milliseconds
