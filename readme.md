@@ -10,11 +10,14 @@ python -m SimpleHTTPServer
 ```
 
 # Folder Structure 
+
 ### js
 - model.js - This file interacts with the database and pulls information from the database(currently google spreadsheets)
 - scripts.js - The core functionality of the application, pulls in information from the model and required plugins. 
+
 ### noty 
 - Plugin used to send notifications
+
 ### sounds
 - Houses the applications sounds
 
