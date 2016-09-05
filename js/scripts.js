@@ -1,23 +1,20 @@
 
 //Google API Key, for development purposes all localmachines are allowed. Change this in production.
 var API_KEY = 'AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40';
-
 //retrieves the audio element id
 var audio = document.getElementById("notification-sound");
 //sets audio to muted by default
 audio.muted = true;
 //retrieves mute button id
 var soundButton = document.getElementById("sound-toggle");
-
 var foundLocationNames = [];
-
 var foundStatues = [];
-
 expiry = new Date();
 //Date format = Days/hours/minutes/seconds/milliseconds
 //Sets expiry to 10 days from creation
 expiry.setTime(expiry.getTime()+(10*24*60*60*1000));
-
+//Initialises the project location to macquarie university
+var myLatLng = { lat:33.7738, lng: 151.1126 };
 
 function checkCookie() {
   if (document.cookie.indexOf("foundLocations") >= 0) {
@@ -145,6 +142,126 @@ function checkDistance(gps1, gps2) {
     return distance; //Returns distance in metres
 }
 
+//Draws a googlemap showing location upon function call
+function initMap() {
+    var map = new google.maps.Map(document.getElementById('map'), {
+    zoom: 20,
+    center: myLatLng,
+    styles: [
+    {
+        "featureType": "landscape",
+        "stylers": [
+            {
+                "hue": "#FFBB00"
+            },
+            {
+                "saturation": 43.400000000000006
+            },
+            {
+                "lightness": 37.599999999999994
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    },
+    {
+        "featureType": "road.highway",
+        "stylers": [
+            {
+                "hue": "#FFC200"
+            },
+            {
+                "saturation": -61.8
+            },
+            {
+                "lightness": 45.599999999999994
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    },
+    {
+        "featureType": "road.arterial",
+        "stylers": [
+            {
+                "hue": "#FF0300"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 51.19999999999999
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    },
+    {
+        "featureType": "road.local",
+        "stylers": [
+            {
+                "hue": "#FF0300"
+            },
+            {
+                "saturation": -100
+            },
+            {
+                "lightness": 52
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    },
+    {
+        "featureType": "water",
+        "stylers": [
+            {
+                "hue": "#0078FF"
+            },
+            {
+                "saturation": -13.200000000000003
+            },
+            {
+                "lightness": 2.4000000000000057
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    },
+    {
+        "featureType": "poi",
+        "stylers": [
+            {
+                "hue": "#00FF6A"
+            },
+            {
+                "saturation": -1.0989010989011234
+            },
+            {
+                "lightness": 11.200000000000017
+            },
+            {
+                "gamma": 1
+            }
+        ]
+    }
+]
+});
+
+    map.setTilt(20);
+
+    var marker = new google.maps.Marker({
+    position: myLatLng,
+    map: map,
+    title: 'This is you!'
+    });
+}
+
 
 //Gets the users location using HTML5 geolocation, takes and watches if the target is near
 //Takes location object as input
@@ -168,22 +285,9 @@ function watchUserLocation(location) {
 
         notifyUser("Located!", locationOutput, img);
 
-        //Google Maps information added
 
-        var myLatLng = {lat:pos.coords.latitude, lng: pos.coords.longitude};
-        //Zooms in the map
-
-        var map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 20,
-        center: myLatLng
-        });
-
-
-        var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        title: 'This is you!'
-        });
+        myLatLng = { lat:pos.coords.latitude, lng: pos.coords.longitude };
+        initMap();
 
         //Check current location against the statues array
         for (var i = 0; i < statues.length; i++) {
