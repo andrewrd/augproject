@@ -35,8 +35,37 @@ header {
   display: inline;
 }
 
+#splash {
+  width:300px;
+  height: 250px;
+  background: #e3e3e3;
+  margin: auto;
+  text-align: center;
+  border: 3px solid #ef5350;
+  padding: 10px;
+}
+
+#start, #augInfo {
+  background-color: white;
+  border: 0px;
+  padding: 10px;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+#start:hover, #augInfo:hover {
+  background-color: black;
+  color: white;
+  border: 0px;
+  cursor: pointer;
+}
+
+#splash p {
+  display: none;
+}
+
 #sound-toggle {
-  display: inline;
+  display: none;
   background-color: white;
   border: 0px;
   padding: 10px;

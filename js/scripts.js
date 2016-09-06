@@ -7,6 +7,8 @@ var audio = document.getElementById("notification-sound");
 //sets audio to muted by default
 audio.muted = true;
 //retrieves mute button id
+var start = document.getElementById("start");
+var augInfo = document.getElementById("augInfo");
 var soundButton = document.getElementById("sound-toggle");
 
 var foundLocationNames = [];
@@ -72,8 +74,7 @@ function removeStatue(targetArray, targetIndex) {
 
 removeFound(foundLocationNames, statues, foundStatues);
 
-
-//Mutes and unmutes sound on click
+//toggle for the mute button on header
 soundButton.onclick = function toggleSound() {
     if (audio.muted) {
         audio.muted = false;
@@ -83,6 +84,22 @@ soundButton.onclick = function toggleSound() {
         audio.muted = true;
         this.innerHTML = "UNMUTE";
     }
+}
+
+//Starts the loading of the map and enables sound
+start.onclick = function startSound() {
+    if (audio.muted) {
+        watchUserLocation(location);
+        document.getElementById("splash").style.display = "none";
+        audio.muted = false;
+        audio.load();
+        document.getElementById("sound-toggle").style.display = "inline";
+    }
+}
+
+//displays instructions for the user
+augInfo.onclick = function toggleInstructions() {
+  document.getElementById("splash").getElementsByTagName("p")[0].style.display = "block";
 }
 
 //displays a nice noty notification at top of screen
@@ -217,6 +234,3 @@ function watchUserLocation(location) {
     //wakeLock = window.navigator.requestWakeLock('gps');
     id = navigator.geolocation.watchPosition(success, error, options);
 }
-
-
-watchUserLocation(location);
