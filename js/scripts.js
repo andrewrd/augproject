@@ -15,6 +15,9 @@ var foundLocationNames = [];
 
 var foundStatues = [];
 
+var noSleep = new NoSleep();
+console.log(noSleep);
+
 expiry = new Date();
 //Date format = Days/hours/minutes/seconds/milliseconds
 //Sets expiry to 10 days from creation
@@ -93,6 +96,7 @@ start.onclick = function startSound() {
         document.getElementById("splash").style.display = "none";
         audio.muted = false;
         audio.load();
+        noSleep.enable();
         document.getElementById("sound-toggle").style.display = "inline";
     }
 }
