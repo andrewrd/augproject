@@ -16,7 +16,6 @@ var foundLocationNames = [];
 var foundStatues = [];
 
 var noSleep = new NoSleep();
-console.log(noSleep);
 
 expiry = new Date();
 //Date format = Days/hours/minutes/seconds/milliseconds
