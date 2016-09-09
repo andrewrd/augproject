@@ -436,7 +436,8 @@ function watchUserLocation(location) {
             lng: pos.coords.longitude
         };
 
-        map.setCenter(myLatLng);
+
+        initMap();
 
         //
 
