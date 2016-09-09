@@ -95,6 +95,7 @@ start.onclick = function startSound() {
         document.getElementById("splash").style.display = "none";
         audio.muted = false;
         audio.load();
+        document.getElementById("map-container").style.display = "block";
         noSleep.enable();
         document.getElementById("sound-toggle").style.display = "inline";
     }
@@ -434,7 +435,10 @@ function watchUserLocation(location) {
             lat: pos.coords.latitude,
             lng: pos.coords.longitude
         };
-        initMap();
+
+        map.setCenter(myLatLng);
+
+        //
 
         //Check current location against the statues array
         for (var i = 0; i < statues.length; i++) {

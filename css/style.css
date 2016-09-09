@@ -79,6 +79,7 @@ header {
   margin:0 auto;
   width:100%;
   height:500px;
+  display: hidden;
 }
 #notification-container {
   margin: 10px auto 10px auto;
@@ -337,5 +338,4 @@ h1.author a {
 
 h1.author a:hover {
     color: #ddd;
-} 
-
+}
