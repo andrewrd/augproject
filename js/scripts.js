@@ -242,7 +242,7 @@ CustomMarker.prototype.draw = function () {
 
     var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
 
-    //Offset the icon by half its size... .Magic number. 
+    //Offset the icon by half its size... .Magic number.
     if (point) {
         div.style.left = (point.x - 125) + 'px';
         div.style.top = (point.y - 125) + 'px';
@@ -272,7 +272,7 @@ function initMap() {
 
 
     var testLoc = new google.maps.LatLng(-33.7797342, 151.2847516);
-    
+
     var mapOptions = {
 
         zoom: 20,
@@ -384,17 +384,17 @@ function initMap() {
     }
 
     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-    
+
     overlay = new CustomMarker(
         testLoc,
         map, {
             marker_id: '123'
         }
     );
-    
-    
+
+
     map.setTilt(20);
-    //   
+    //
     var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
@@ -470,10 +470,7 @@ function watchUserLocation(location) {
 }
 
 
-
-watchUserLocation(location);
-
-//Selection for generated content. 
+//Selection for generated content.
 $(document).on('click', 'a#tests', function (event) {
     //    event.preventDefault();
     alert("It's Working");
@@ -481,5 +478,3 @@ $(document).on('click', 'a#tests', function (event) {
 
 })
 $("#demo01").animatedModal();
-
-
