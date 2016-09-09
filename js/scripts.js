@@ -11,12 +11,9 @@ var augInfo = document.getElementById("augInfo");
 var soundButton = document.getElementById("sound-toggle");
 var foundLocationNames = [];
 var foundStatues = [];
-<<<<<<< HEAD
-=======
 
 var noSleep = new NoSleep();
 
->>>>>>> title-screen
 expiry = new Date();
 //Date format = Days/hours/minutes/seconds/milliseconds
 //Sets expiry to 10 days from creation
