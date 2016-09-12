@@ -8,8 +8,6 @@ audio.muted = true;
 var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
 var soundButton = document.getElementById("sound-toggle");
-var foundLocationNames = [];
-var foundStatues = [];
 
 var noSleep = new NoSleep();
 
@@ -23,58 +21,10 @@ var myLatLng = {
     lng: 151.1126
 };
 
-function checkCookie() {
-    if (document.cookie.indexOf("foundLocations") >= 0) {
-        foundLocationNames = getCookie("foundLocations").split(",");
-        console.log(foundLocationNames);
-    } else {
-        document.cookie = "foundLocations=; expires=" + expiry.toGMTString();
-    }
-}
-
-function getCookie(cname) {
-    var name = cname + "=";
-    var ca = document.cookie.split(';');
-    for (var i = 0; i < ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
-//saves array into cookie
-function saveCookie(saveArray) {
-    var cookieString = saveArray.join();
-    document.cookie = "foundLocations=" + cookieString + "; expires=" + expiry.toGMTString();
-}
-
-
-//checks that a cookie exists.
-checkCookie();
-
-//removes all found locations from the statue array, adds them to the foundStatues array
-function removeFound(foundLocs, target, foundStatues) {
-    for (var i = 0; i < foundLocs.length; i++) {
-        for (var k = 0; k < target.length; k++) {
-            if (foundLocs[i] == target[k].name) {
-                foundStatues.push(target[k]);
-                removeStatue(target, k);
-            }
-        }
-    }
-}
-
-//removes the statue at targetIndex from the targetArray
-function removeStatue(targetArray, targetIndex) {
-    targetArray.splice(targetIndex, 1);
-}
-
-removeFound(foundLocationNames, statues, foundStatues);
+//Returns an array of location names that have been found
+var foundLocationNames = checkCookie();
+//based on found location names, returns an array of found statue objects
+var foundStatues = removeFound(foundLocationNames, statues);
 
 //toggle for the mute button on header
 soundButton.onclick = function toggleSound() {
