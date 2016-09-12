@@ -27,16 +27,7 @@ var foundLocationNames = checkCookie();
 var foundStatues = removeFound(foundLocationNames, statues);
 
 //toggle for the mute button on header
-soundButton.onclick = function toggleSound() {
-    if (audio.muted) {
-        audio.muted = false;
-        audio.load();
-        this.innerHTML = "MUTE";
-    } else {
-        audio.muted = true;
-        this.innerHTML = "UNMUTE";
-    }
-}
+soundButton.onclick = toggleSound();
 
 //Starts the loading of the map and enables sound
 start.onclick = function startSound() {
@@ -52,9 +43,7 @@ start.onclick = function startSound() {
 }
 
 //displays instructions for the user
-augInfo.onclick = function toggleInstructions() {
-  document.getElementById("splash").getElementsByTagName("p")[0].style.display = "block";
-}
+augInfo.onclick = toggleInstructions();
 
 //Location object to store location values in
 function location(lat, longi) {

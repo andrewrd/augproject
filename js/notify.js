@@ -28,3 +28,20 @@ function displayInfo(theSculpture) {
     document.getElementById("location-container").getElementsByTagName("p")[1].innerHTML = theDesc;
     document.getElementById("location-container").style.display = "block";
 }
+
+//displays instructions for the user
+function toggleInstructions() {
+  document.getElementById("splash").getElementsByTagName("p")[0].style.display = "block";
+}
+
+//toggle for the mute button on header
+function toggleSound() {
+    if (audio.muted) {
+        audio.muted = false;
+        audio.load();
+        this.innerHTML = "MUTE";
+    } else {
+        audio.muted = true;
+        this.innerHTML = "UNMUTE";
+    }
+}
