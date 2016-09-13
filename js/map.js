@@ -1,8 +1,9 @@
 //Draws a googlemap showing location upon function call
-function initMap() {
+function initMap(statues) {
 
 
     var testLoc = new google.maps.LatLng(-33.7797342, 151.2847516);
+    var testLoc2 = new google.maps.LatLng(-34.7797342, 150.2847516);
 
     var mapOptions = {
 
@@ -116,12 +117,27 @@ function initMap() {
 
     var map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
+
+    //displays all statue locations on map
+    for (var i = 0; i < statues.length; i++) {
+        var thisLoc = new google.maps.LatLng(statues[i].latitude, statues[i].longitude);
+        overlay = new CustomMarker(
+            thisLoc,
+            map, {
+                marker_id: i
+            }
+        );
+    }
+
+
     overlay = new CustomMarker(
         testLoc,
         map, {
             marker_id: '123'
         }
     );
+
+
 
 
     map.setTilt(20);

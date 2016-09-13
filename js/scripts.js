@@ -27,7 +27,6 @@ var myLatLng = {
 var foundLocationNames = checkCookie();
 //based on found location names, returns an array of found statue objects
 var foundStatues = removeFound(foundLocationNames, statues);
-
 //toggle for the mute button on header
 soundButton.onclick = function toggleSound() {
     if (audio.muted) {
@@ -190,7 +189,7 @@ CustomMarker.prototype.getPosition = function () {
 }
 
 
-google.maps.event.addDomListener(window, 'load', function() {map = initMap();});
+google.maps.event.addDomListener(window, 'load', function() {map = initMap(statues);});
 
 
 
@@ -223,6 +222,7 @@ function watchUserLocation(location) {
         };
 
         map.panTo(myLatLng);
+
 
         //Check current location against the statues array
         for (var i = 0; i < statues.length; i++) {
