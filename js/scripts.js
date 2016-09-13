@@ -11,6 +11,8 @@ var soundButton = document.getElementById("sound-toggle");
 
 var noSleep = new NoSleep();
 
+var map;
+
 expiry = new Date();
 //Date format = Days/hours/minutes/seconds/milliseconds
 //Sets expiry to 10 days from creation
@@ -45,7 +47,7 @@ start.onclick = function startSound() {
         document.getElementById("splash").style.display = "none";
         audio.muted = false;
         audio.load();
-        document.getElementById("map-container").style.display = "block";
+        document.getElementById("map-container").style.visibility = "visible";
         noSleep.enable();
         document.getElementById("sound-toggle").style.display = "inline";
     }
@@ -188,143 +190,7 @@ CustomMarker.prototype.getPosition = function () {
 }
 
 
-//Draws a googlemap showing location upon function call
-function initMap() {
-
-
-    var testLoc = new google.maps.LatLng(-33.7797342, 151.2847516);
-
-    var mapOptions = {
-
-        zoom: 20,
-        center: myLatLng,
-        styles: [
-            {
-                "featureType": "landscape",
-                "stylers": [
-                    {
-                        "hue": "#FFBB00"
-                    },
-                    {
-                        "saturation": 43.400000000000006
-                    },
-                    {
-                        "lightness": 37.599999999999994
-                    },
-                    {
-                        "gamma": 1
-                    }
-                ]
-            },
-            {
-                "featureType": "road.highway",
-                "stylers": [
-                    {
-                        "hue": "#FFC200"
-                    },
-                    {
-                        "saturation": -61.8
-                    },
-                    {
-                        "lightness": 45.599999999999994
-                    },
-                    {
-                        "gamma": 1
-                    }
-                ]
-            },
-            {
-                "featureType": "road.arterial",
-                "stylers": [
-                    {
-                        "hue": "#FF0300"
-                    },
-                    {
-                        "saturation": -100
-                    },
-                    {
-                        "lightness": 51.19999999999999
-                    },
-                    {
-                        "gamma": 1
-                    }
-                ]
-            },
-            {
-                "featureType": "road.local",
-                "stylers": [
-                    {
-                        "hue": "#FF0300"
-                    },
-                    {
-                        "saturation": -100
-                    },
-                    {
-                        "lightness": 52
-                    },
-                    {
-                        "gamma": 1
-                    }
-                ]
-            },
-            {
-                "featureType": "water",
-                "stylers": [
-                    {
-                        "hue": "#0078FF"
-                    },
-                    {
-                        "saturation": -13.200000000000003
-                    },
-                    {
-                        "lightness": 2.4000000000000057
-                    },
-                    {
-                        "gamma": 1
-                    }
-                ]
-            },
-            {
-                "featureType": "poi",
-                "stylers": [
-                    {
-                        "hue": "#00FF6A"
-                    },
-                    {
-                        "saturation": -1.0989010989011234
-                    },
-                    {
-                        "lightness": 11.200000000000017
-                    },
-                    {
-                        "gamma": 1
-                    }
-                ]
-            }
-        ]
-    }
-
-    var map = new google.maps.Map(document.getElementById('map'), mapOptions);
-
-    overlay = new CustomMarker(
-        testLoc,
-        map, {
-            marker_id: '123'
-        }
-    );
-
-
-    map.setTilt(20);
-    //
-    var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        title: 'This is you!'
-    });
-
-
-}
-google.maps.event.addDomListener(window, 'load', initMap);
+google.maps.event.addDomListener(window, 'load', function() {map = initMap();});
 
 
 
@@ -356,10 +222,7 @@ function watchUserLocation(location) {
             lng: pos.coords.longitude
         };
 
-
-        initMap();
-
-        //
+        map.panTo(myLatLng);
 
         //Check current location against the statues array
         for (var i = 0; i < statues.length; i++) {
