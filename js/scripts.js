@@ -191,7 +191,7 @@ CustomMarker.prototype.getPosition = function () {
 }
 
 
-google.maps.event.addDomListener(window, 'load', function() {map = initMap(statues);});
+google.maps.event.addDomListener(window, 'load', function() {map = initMap(foundStatues);});
 
 
 
