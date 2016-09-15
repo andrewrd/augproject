@@ -49,6 +49,8 @@ start.onclick = function startSound() {
         document.getElementById("map-container").style.visibility = "visible";
         noSleep.enable();
         document.getElementById("sound-toggle").style.display = "inline";
+        document.body.style.overflow = "scroll";
+        document.getElementById("overlay").style.display = "none";
     }
 }
 
