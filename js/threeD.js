@@ -60,13 +60,23 @@ function init(){
     renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
 
     //Where to insert our 3d scene
-    document.getElementById("animatedModal").appendChild(renderer.domElement);
+    document.getElementById("modalContentId").appendChild(renderer.domElement);
 
     //Control Code
     controls = new THREE.OrbitControls(camera, renderer.domElement);
     controls.enableDamping = true;
     controls.dampingFactor = 0.25;
     controls.enableZoom = false;
+
+}
+
+window.addEventListener('resize', onWindowResize, false);
+
+function onWindowResize(){
+	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.updateProjectionMatrix();
+	
+	renderer.setSize(window.innerWidth, window.innerHeight);
 
 }
 
