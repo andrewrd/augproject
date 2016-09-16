@@ -4,6 +4,7 @@
         <meta charset="utf-8">
         <title>Augproject</title>
         <link rel="stylesheet" type="text/css" href="css/style.css">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ef5350">
     </head>
@@ -12,9 +13,27 @@
           <div class="header-container">
             <img class="logo" src="img/mq.png" alt="Macquarie University Logo">
             <button id="sound-toggle">UNMUTE</button>
+            <button class="button" id="sound-toggle">MUTE</button>
           </div>
         </header>
         <main>
+            <!--Call your modal-->
+            <!-- http://joaopereirawd.github.io/animatedModal.js/ -->
+            <a id="demo01" href="#animatedModal">DEMO01</a>
+
+            <!--DEMO01-->
+            <div id="animatedModal">
+                <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
+                <div class="close-animatedModal">
+                    CLOSE MODAL
+                </div>
+
+                <div class="modal-content" id="modalContentId">
+                    <!--Your modal content goes here-->
+                </div>
+            </div>
+
+
           <div id="notification-container">
             <h2 id="notification-title">Finding your location</h2>
             <div id="notification-message"></div>
@@ -35,6 +54,14 @@
                 </div>
             </div>
           </div>
+          <div id="overlay"></div>
+          <div id = "splash">
+            <h3>Welcome to Pokemon Go 2.0</h3>
+            <button class="button" id="start">LET'S GO</button>
+            <button class="button" id="augInfo">HOW IT WORKS</button>
+            <p>Simply walk around and try to find statues on MQ Campus. Step within 10 metres and you will see some information about the statue pop up.
+            </p>
+          </div>
           <div id="map-container">
             <div id="map"></div>
           </div>
@@ -51,10 +78,29 @@
         <audio id="notification-sound">
             <source src="sounds/notificationSound.mp3" type="audio/mpeg">>
         </audio>
+
+        <!--Google Map Api-->
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40"></script>
-        <script type="text/javascript" src="js/model.js"></script>
-        <script type="text/javascript" src="js/scripts.js"></script>
-        <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src = "noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
+        <script src="js/animatedModal.min.js"></script>
+
+        <!--3d Javascript files needed-->
+        <script type="text/javascript" src="http://cdnjs.cloudflare.com/ajax/libs/three.js/r79/three.min.js"></script>
+        <script type="text/javascript" src="js/notify.js"></script>
+        <script type="text/javascript" src="js/cookies.js"></script>
+        <script type="text/javascript" src="js/OBJLoader.js"></script>
+        <script type="text/javascript" src="js/Detector.js"></script>
+        <script type="text/javascript" src="js/OrbitControls.js"></script>
+        <script type="text/javascript" src="js/threeD.js"></script>
+
+        <script src = "nosleep/nosleep.js"></script>
+
+        <script type="text/javascript" src="js/model.js"></script>
+        <script type="text/javascript" src="js/map.js"></script>
+
+        <script type="text/javascript" src="js/scripts.js"></script>
+
     </body>
 </html>
