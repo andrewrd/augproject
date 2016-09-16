@@ -15,6 +15,8 @@ expiry = new Date();
 expiry.setTime(expiry.getTime()+(10*24*60*60*1000));
 //Initialises the project location to macquarie university
 var myLatLng = { lat:33.7738, lng: 151.1126 };
+//Icons used to overlay the map with custom images
+
 
 function checkCookie() {
   if (document.cookie.indexOf("foundLocations") >= 0) {

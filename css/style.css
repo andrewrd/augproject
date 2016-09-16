@@ -13,6 +13,7 @@
 body {
   font-family: Arial, sans-serif;
   margin: 0;
+  background-color: #f4f2ef;
 }
 
 /* header */
@@ -33,6 +34,13 @@ header {
 .header-container h1 {
   margin: 0;
   display: inline;
+}
+
+.logo {
+  display:block;
+  width:130px;
+  height:40px;
+  background-size: 270px 648.51px;
 }
 
 #sound-toggle {
