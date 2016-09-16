@@ -7,12 +7,12 @@
 - If using media queries, place beneath main styling.
   and reuse same defined sections.
 */
-@import "http://netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css";
 /* global styles */
 
 body {
   font-family: Arial, sans-serif;
   margin: 0;
+  background-color: #f4f2ef;
   overflow: hidden;
 }
 
@@ -49,6 +49,13 @@ header {
 .header-container h1 {
   margin: 0;
   display: inline;
+}
+
+.logo {
+  display:block;
+  width:130px;
+  height:40px;
+  background-size: 270px 648.51px;
 }
 
 #sound-toggle {
