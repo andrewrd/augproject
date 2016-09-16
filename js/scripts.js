@@ -1,0 +1,270 @@
+//Google API Key, for development purposes all localmachines are allowed. Change this in production.
+var API_KEY = 'AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40';
+//retrieves the audio element id
+var audio = document.getElementById("notification-sound");
+//sets audio to muted by default
+audio.muted = true;
+//retrieves mute button id
+var start = document.getElementById("start");
+var augInfo = document.getElementById("augInfo");
+var soundButton = document.getElementById("sound-toggle");
+
+var noSleep = new NoSleep();
+
+var map;
+
+expiry = new Date();
+//Date format = Days/hours/minutes/seconds/milliseconds
+//Sets expiry to 10 days from creation
+expiry.setTime(expiry.getTime() + (10 * 24 * 60 * 60 * 1000));
+//Initialises the project location to macquarie university
+var myLatLng = {
+    lat: 33.7738,
+    lng: 151.1126
+};
+
+//Returns an array of location names that have been found
+var foundLocationNames = checkCookie();
+//based on found location names, returns an array of found statue objects
+var foundStatues = removeFound(foundLocationNames, statues);
+//toggle for the mute button on header
+soundButton.onclick = function toggleSound() {
+    if (audio.muted) {
+        audio.muted = false;
+        audio.load();
+        this.innerHTML = "MUTE";
+    } else {
+        audio.muted = true;
+        this.innerHTML = "UNMUTE";
+    }
+};
+
+//Starts the loading of the map and enables sound
+start.onclick = function startSound() {
+    if (audio.muted) {
+        watchUserLocation(location);
+        document.getElementById("splash").style.display = "none";
+        audio.muted = false;
+        audio.load();
+        document.getElementById("map-container").style.visibility = "visible";
+        noSleep.enable();
+        document.getElementById("sound-toggle").style.display = "inline";
+        document.body.style.overflow = "scroll";
+        document.getElementById("overlay").style.display = "none";
+    }
+}
+
+//displays instructions for the user
+augInfo.onclick = function toggleInstructions() {
+  document.getElementById("splash").getElementsByTagName("p")[0].style.display = "block";
+}
+
+//Location object to store location values in
+function location(lat, longi) {
+    this.latitude = lat;
+    this.longitude = longi;
+}
+
+//Helper function to convert degrees to radians
+function toRad(Value) {
+    return Value * Math.PI / 180;
+}
+
+//Checks distance between 2 gps locations.
+//https://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
+function checkDistance(gps1, gps2) {
+    var R = 6378137; //Radius in metres
+    var distLat = toRad(gps2.latitude - gps1.latitude);
+    var distLong = toRad(gps2.longitude - gps1.longitude);
+    var lat1 = toRad(gps1.latitude);
+    var lat2 = toRad(gps2.latitude);
+
+
+    var a = Math.sin(distLat / 2) * Math.sin(distLat / 2) +
+        Math.cos(lat1) * Math.cos(lat2) *
+        Math.sin(distLong / 2) * Math.sin(distLong / 2);
+    var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+    var distance = R * c;
+    console.log("You are " + distance + "m away from this target");
+    return distance; //Returns distance in metres
+}
+
+
+function CustomMarker(latlng, map, args) {
+    this.latlng = latlng;
+    this.args = args;
+    this.setMap(map);
+}
+
+CustomMarker.prototype = new google.maps.OverlayView();
+
+
+CustomMarker.prototype.draw = function () {
+
+
+    var self = this;
+
+    var div = this.div;
+
+
+    if (!div) {
+
+        div = this.div = document.createElement('nav');
+        div.className = 'circular-menu';
+
+        var circleDiv = document.createElement('div');
+        circleDiv.className = 'circle';
+
+        var firstLink = document.createElement('a');
+        firstLink.className = "fa fa-home fa-2x";
+        firstLink.href = "#";
+
+        var secondLink = document.createElement('a');
+        secondLink.className = "fa fa-home fa-2x";
+        secondLink.setAttribute("id", "tests");
+        secondLink.href = "#animatedModal";
+
+
+        circleDiv.appendChild(firstLink);
+        circleDiv.appendChild(secondLink);
+        div.appendChild(circleDiv);
+
+        var menuLink = document.createElement('a');
+
+        menuLink.className = "menu-button fa fa-bars fa-2x";
+
+        div.appendChild(menuLink);
+        div.style.position = 'absolute';
+        div.style.cursor = 'pointer';
+
+        if (typeof (self.args.marker_id) !== 'undefined') {
+            div.dataset.marker_id = self.args.marker_id;
+        }
+
+        google.maps.event.addDomListener(div, "click", function (event) {
+            var items = div.querySelectorAll('.circle a');
+
+            for (var i = 0, l = items.length; i < l; i++) {
+                items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+
+                items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
+            }
+
+            document.querySelector('.menu-button').onclick = function (e) {
+                e.preventDefault();
+                document.querySelector('.circle').classList.toggle('open');
+            }
+
+        })
+
+        var panes = this.getPanes();
+        panes.overlayImage.appendChild(div);
+
+
+
+    }
+
+    var point = this.getProjection().fromLatLngToDivPixel(this.latlng);
+
+    //Offset the icon by half its size... .Magic number.
+    if (point) {
+        div.style.left = (point.x - 125) + 'px';
+        div.style.top = (point.y - 125) + 'px';
+    }
+
+}
+
+
+
+
+CustomMarker.prototype.remove = function () {
+    if (this.div) {
+        this.div.parentNode.removeChild(this.div);
+        this.div = null;
+    }
+
+}
+
+
+CustomMarker.prototype.getPosition = function () {
+    return this.latlng;
+}
+
+
+google.maps.event.addDomListener(window, 'load', function() {map = initMap(foundStatues);});
+
+
+
+//Gets the users location using HTML5 geolocation, takes and watches if the target is near
+//Takes location object as input
+function watchUserLocation(location) {
+
+    if (!navigator.geolocation) {
+        notifyUser("Something went wrong!", "<p>Geolocation is not supported by your browser.</p>", "");
+        return;
+    }
+    var id, options;
+    //Wakelock does not work, causes code to crash
+    //var wakeLock;
+
+    function success(pos) {
+        var crd = pos.coords;
+        var currentLoc = new location(crd.latitude, crd.longitude);
+        var img = new Image();
+        //img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=17&size=300x300&sensor=false&key=" + API_KEY;
+
+        var locationOutput = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
+
+        notifyUser("Located!", locationOutput, img);
+
+
+        myLatLng = {
+            lat: pos.coords.latitude,
+            lng: pos.coords.longitude
+        };
+
+        map.panTo(myLatLng);
+
+
+        //Check current location against the statues array
+        for (var i = 0; i < statues.length; i++) {
+            var target = new location(statues[i].latitude, statues[i].longitude);
+            if (checkDistance(currentLoc, target) < 10) {
+                notyMessage(statues[i]);
+                console.log('Congratulations, you are within 10m from the target');
+                audio.play();
+                displayInfo(statues[i]);
+                //add found locations name to array
+                foundLocationNames.push(statues[i].name)
+                    //add found locations to foundStatues, and remove from statues
+                removeFound(foundLocationNames, statues, foundStatues);
+                //saves cookie each time a location is found
+                saveCookie(foundLocationNames);
+            }
+        }
+
+    }
+
+    function error(err) {
+        notifyUser("Something went wrong!", "<p>We were unable to locate you.</p>", "");
+        console.warn('ERROR(' + err.code + '): ' + err.message);
+    }
+
+    options = { 
+        enableHighAccuracy: true,
+         timeout: 5000,
+         maximumAge: 0
+    };
+    //wakeLock = window.navigator.requestWakeLock('gps');
+    id = navigator.geolocation.watchPosition(success, error, options);
+}
+
+
+//Selection for generated content.
+$(document).on('click', 'a#tests', function (event) {
+    //    event.preventDefault();
+    alert("It's Working");
+    $("#demo01").animatedModal();
+
+})
+$("#demo01").animatedModal();
