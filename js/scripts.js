@@ -21,61 +21,6 @@ expiry.setTime(expiry.getTime() + (10 * 24 * 60 * 60 * 1000));
 var myLatLng = { lat:33.7738, lng: 151.1126 };
 //Icons used to overlay the map with custom images
 
-
-function checkCookie() {
-  if (document.cookie.indexOf("foundLocations") >= 0) {
-    foundLocationNames = getCookie("foundLocations").split(",");
-    console.log(foundLocationNames);
-  } else {
-    document.cookie="foundLocations=; expires=" + expiry.toGMTString();
-  }
-}
-
-function getCookie(cname) {
-  var name = cname + "=";
-  var ca = document.cookie.split(';');
-  for(var i = 0; i < ca.length; i++) {
-    var c = ca[i];
-    while (c.charAt(0) == ' ') {
-      c = c.substring(1);
-    }
-    if (c.indexOf(name) == 0) {
-      return c.substring(name.length, c.length);
-    }
-  }
-  return "";
-}
-
-//saves array into cookie
-function saveCookie(saveArray) {
-  var cookieString = saveArray.join();
-  document.cookie="foundLocations=" + cookieString + "; expires=" + expiry.toGMTString();
-}
-
-
-//checks that a cookie exists.
-checkCookie();
-
-//removes all found locations from the statue array, adds them to the foundStatues array
-function removeFound(foundLocs, target, foundStatues){
-  for (var i = 0; i < foundLocs.length; i++) {
-    for (var k = 0; k < target.length; k++) {
-      if (foundLocs[i] == target[k].name) {
-        foundStatues.push(target[k]);
-        removeStatue(target, k);
-      }
-    }
-  }
-}
-
-//removes the statue at targetIndex from the targetArray
-function removeStatue(targetArray, targetIndex) {
-  targetArray.splice(targetIndex, 1);
-}
-
-removeFound(foundLocationNames, statues, foundStatues);
-
-
 //Mutes and unmutes sound on click
 var myLatLng = {
     lat: 33.7738,
