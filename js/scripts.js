@@ -9,6 +9,9 @@ var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
 var soundButton = document.getElementById("sound-toggle");
 
+//testing dynamicly placed customer markers.
+var markerID = 100;
+
 var noSleep = new NoSleep();
 
 var map;
@@ -229,7 +232,6 @@ function watchUserLocation(location) {
 
         map.panTo(myLatLng);
 
-
         //Check current location against the statues array
         for (var i = 0; i < statues.length; i++) {
             var target = new location(statues[i].latitude, statues[i].longitude);
@@ -240,10 +242,21 @@ function watchUserLocation(location) {
                 displayInfo(statues[i]);
                 //add found locations name to array
                 foundLocationNames.push(statues[i].name)
-                    //add found locations to foundStatues, and remove from statues
+                //add found locations to foundStatues, and remove from statues
                 removeFound(foundLocationNames, statues, foundStatues);
                 //saves cookie each time a location is found
                 saveCookie(foundLocationNames);
+
+                //creates a google maps LatLng object
+                var markerPos = new google.maps.LatLng(target.latitude, target.longitude);
+                overlay = new CustomMarker(
+                    markerPos,
+                    map, {
+                        marker_id: markerID
+                    }
+                );
+
+                markerID++;
             }
         }
 
