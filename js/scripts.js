@@ -252,7 +252,7 @@ function watchUserLocation(location) {
                 overlay = new CustomMarker(
                     markerPos,
                     map, {
-                        marker_id: markerID
+                        marker_id: statues[i].id
                     }
                 );
 

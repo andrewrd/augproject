@@ -124,7 +124,7 @@ function initMap(statues) {
         overlay = new CustomMarker(
             thisLoc,
             map, {
-                marker_id: i
+                marker_id: statues[i].id
             }
         );
     }
