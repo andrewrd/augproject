@@ -4,10 +4,16 @@ var API_KEY = 'AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40';
 var audio = document.getElementById("notification-sound");
 //sets audio to muted by default
 audio.muted = true;
+//Initialises the project location to macquarie university
+var myLatLng = {
+    lat: 33.7738,
+    lng: 151.1126
+};
 //retrieves mute button id
 var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
 var soundButton = document.getElementById("sound-toggle");
+var userMarker = [];
 
 //testing dynamicly placed customer markers.
 var markerID = 100;
@@ -20,15 +26,6 @@ expiry = new Date();
 //Date format = Days/hours/minutes/seconds/milliseconds
 //Sets expiry to 10 days from creation
 expiry.setTime(expiry.getTime() + (10 * 24 * 60 * 60 * 1000));
-//Initialises the project location to macquarie university
-var myLatLng = { lat:33.7738, lng: 151.1126 };
-//Icons used to overlay the map with custom images
-
-//Mutes and unmutes sound on click
-var myLatLng = {
-    lat: 33.7738,
-    lng: 151.1126
-};
 
 //Returns an array of location names that have been found
 var foundLocationNames = checkCookie();
@@ -230,7 +227,28 @@ function watchUserLocation(location) {
             lng: pos.coords.longitude
         };
 
+        //centre the map on the users location
         map.panTo(myLatLng);
+
+        //this removes old user positon from the map
+        for (var i = 0; i < userMarker.length; i++) {
+          userMarker[i].setMap(null);
+        }
+
+        //clears the array of old user markers, as we dont need
+        //these once theyve been removed
+        userMarker = [];
+
+        //creates a marker on the map at the users location
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map
+        });
+
+        //stores this new marker in a global array,
+        //so it can be accessed anywhere
+        userMarker.push(marker);
+
 
         //Check current location against the statues array
         for (var i = 0; i < statues.length; i++) {
