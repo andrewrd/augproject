@@ -146,7 +146,8 @@ CustomMarker.prototype.draw = function () {
         }
 
         google.maps.event.addDomListener(div, "click", function (event) {
-            var items = div.querySelectorAll('.circle a');
+            
+            var items = this.querySelectorAll('.circle a');
 
             for (var i = 0, l = items.length; i < l; i++) {
                 items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
@@ -154,9 +155,10 @@ CustomMarker.prototype.draw = function () {
                 items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
             }
 
-            document.querySelector('.menu-button').onclick = function (e) {
+            this.querySelector('.menu-button').onclick = function (e) {
+                console.log(this);
                 e.preventDefault();
-                document.querySelector('.circle').classList.toggle('open');
+                this.parentNode.querySelector('.circle').classList.toggle('open');
             }
 
         })
