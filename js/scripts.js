@@ -156,7 +156,6 @@ CustomMarker.prototype.draw = function () {
             }
 
             this.querySelector('.menu-button').onclick = function (e) {
-                console.log(this);
                 e.preventDefault();
                 this.parentNode.querySelector('.circle').classList.toggle('open');
             }
