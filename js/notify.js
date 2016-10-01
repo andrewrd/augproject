@@ -30,6 +30,7 @@ function displayInfo(theSculpture) {
 }
 
 function locationDisplay(locationIndex){
+    console.log("You are accessing locationIndex: "+locationIndex);
     $("#location-screen").css({
         "visibility": "visible"
     })
@@ -41,6 +42,8 @@ function locationDisplay(locationIndex){
     }
     if (target != null || target != undefined) {
         output.getElementsByTagName('h3')[0].innerHTML = target.name;
+    } else {
+        console.log("Location "+locationIndex+" could not be found.");
     }
 }
 

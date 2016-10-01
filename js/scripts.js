@@ -14,10 +14,7 @@ var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
 var soundButton = document.getElementById("sound-toggle");
 var userMarker = [];
-var foundLocationMarkers = [];
-
-//testing dynamicly placed customer markers.
-var markerID = 100;
+var foundStatues = [];
 
 var noSleep = new NoSleep();
 
@@ -31,7 +28,7 @@ expiry.setTime(expiry.getTime() + (10 * 24 * 60 * 60 * 1000));
 //Returns an array of location names that have been found
 var foundLocationNames = checkCookie();
 //based on found location names, returns an array of found statue objects
-var foundStatues = removeFound(foundLocationNames, statues);
+foundStatues = removeFound(foundLocationNames, statues, foundStatues);
 //toggle for the mute button on header
 soundButton.onclick = function toggleSound() {
     if (audio.muted) {
@@ -270,27 +267,28 @@ function watchUserLocation(location) {
         for (var i = 0; i < statues.length; i++) {
             var target = new location(statues[i].latitude, statues[i].longitude);
             if (checkDistance(currentLoc, target) < 10) {
+                var markerID = statues[i].id;
                 notyMessage(statues[i]);
                 console.log('Congratulations, you are within 10m from the target');
                 audio.play();
                 displayInfo(statues[i]);
                 //add found locations name to array
-                foundLocationNames.push(statues[i].name)
+                foundLocationNames.push(statues[i].name);
                 //add found locations to foundStatues, and remove from statues
-                removeFound(foundLocationNames, statues, foundStatues);
+                foundStatues = removeFound(foundLocationNames, statues, foundStatues);
                 //saves cookie each time a location is found
                 saveCookie(foundLocationNames);
 
+
                 //creates a google maps LatLng object
+
                 var markerPos = new google.maps.LatLng(target.latitude, target.longitude);
                 overlay = new CustomMarker(
                     markerPos,
                     map, {
-                        marker_id: statues[i].id
+                        marker_id: markerID
                     }
                 );
-
-                markerID++;
             }
         }
 
