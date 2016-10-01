@@ -14,6 +14,7 @@ var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
 var soundButton = document.getElementById("sound-toggle");
 var userMarker = [];
+var foundLocationMarkers = [];
 
 //testing dynamicly placed customer markers.
 var markerID = 100;
@@ -120,11 +121,11 @@ CustomMarker.prototype.draw = function () {
         circleDiv.className = 'circle';
 
         var firstLink = document.createElement('a');
-        firstLink.className = "fa fa-home fa-2x";
+        firstLink.className = "fa fa-home fa-2x callInfo";
         firstLink.href = "#";
 
         var secondLink = document.createElement('a');
-        secondLink.className = "fa fa-home fa-2x";
+        secondLink.className = "fa fa-home fa-2x callObj";
         secondLink.href = "#animatedModal";
 
 
@@ -145,7 +146,7 @@ CustomMarker.prototype.draw = function () {
         }
 
         google.maps.event.addDomListener(div, "click", function (event) {
-            
+
             var items = this.querySelectorAll('.circle a');
 
             for (var i = 0, l = items.length; i < l; i++) {
@@ -159,13 +160,19 @@ CustomMarker.prototype.draw = function () {
                 this.parentNode.querySelector('.circle').classList.toggle('open');
             }
 
-            this.querySelector('.thing').onclick = function(e) {
+            this.querySelector('.callObj').onclick = function(e) {
               e.preventDefault();
               $(this).animatedModal();
               $("#animatedModal").css({
                 "opacity": "1",
                 "z-index": "999"
               })
+            }
+
+            this.querySelector('.callInfo').onclick = function(e) {
+              e.preventDefault();
+              var targetId = self.args.marker_id;
+              locationDisplay(targetId);
             }
 
         })

@@ -28,3 +28,24 @@ function displayInfo(theSculpture) {
     document.getElementById("location-container").getElementsByTagName("p")[1].innerHTML = theDesc;
     document.getElementById("location-container").style.display = "block";
 }
+
+function locationDisplay(locationIndex){
+    $("#location-screen").css({
+        "visibility": "visible"
+    })
+    var output = document.getElementById("location-screen");
+    for (var i = 0; i < foundStatues.length; i++){
+        if (locationIndex == foundStatues[i].id) {
+            var target = foundStatues[i];
+        }
+    }
+    if (target != null || target != undefined) {
+        output.getElementsByTagName('h3')[0].innerHTML = target.name;
+    }
+}
+
+$("#location-return").click(function(){
+    $("#location-screen").css({
+        "visibility": "hidden"
+    })
+})
