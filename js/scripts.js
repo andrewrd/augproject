@@ -125,7 +125,6 @@ CustomMarker.prototype.draw = function () {
 
         var secondLink = document.createElement('a');
         secondLink.className = "fa fa-home fa-2x";
-        secondLink.setAttribute("id", "tests");
         secondLink.href = "#animatedModal";
 
 
@@ -158,6 +157,15 @@ CustomMarker.prototype.draw = function () {
             this.querySelector('.menu-button').onclick = function (e) {
                 e.preventDefault();
                 this.parentNode.querySelector('.circle').classList.toggle('open');
+            }
+
+            this.querySelector('.thing').onclick = function(e) {
+              e.preventDefault();
+              $(this).animatedModal();
+              $("#animatedModal").css({
+                "opacity": "1",
+                "z-index": "999"
+              })
             }
 
         })
@@ -295,12 +303,4 @@ function watchUserLocation(location) {
     id = navigator.geolocation.watchPosition(success, error, options);
 }
 
-
-//Selection for generated content.
-$(document).on('click', 'a#tests', function (event) {
-    //    event.preventDefault();
-    alert("It's Working");
-    $("#demo01").animatedModal();
-
-})
 $("#demo01").animatedModal();
