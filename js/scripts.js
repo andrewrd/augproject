@@ -159,10 +159,10 @@ CustomMarker.prototype.draw = function () {
 
             this.querySelector('.callObj').onclick = function(e) {
               e.preventDefault();
-              $(this).animatedModal();
-              $("#animatedModal").css({
+              $('.callObj').animatedModal();
+              $("#animatedModal").removeClass("animatedModal-off").addClass("animatedModal-on").css({
                 "opacity": "1",
-                "z-index": "999"
+                "z-index": "9999"
               })
             }
 
@@ -309,3 +309,10 @@ function watchUserLocation(location) {
 }
 
 $("#demo01").animatedModal();
+
+$(".close-animatedModal").click(function(){
+  $("#animatedModal").css({
+    "opacity": "0",
+    "z-index": "-9999"
+  })
+});
