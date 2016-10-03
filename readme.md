@@ -1,7 +1,5 @@
 An augmented reality project intended to push the capabilities of HTML5 & Javascript. 
 
-![Screenshot of project](http://imgur.com/a/15v76)
-
 # Get started 
 In order to run this project locally, you must run a localserver. You can do this by running a python server in the command line after navigating to the folder directory using: 
 
@@ -10,8 +8,6 @@ Paste the below code into the command line:
 ```
 python -m SimpleHTTPServer
 ```
-
----
 
 # Folder Structure 
 
@@ -23,8 +19,6 @@ This document will map out the location of each file on the project and it's pur
 - cookies.js - user sessions
 - map.js - Google map styling
 - notify.js - noty code calls & user notifcations
-
-
 - Three.js - dependency for loading webgl - https://threejs.org/
 - OBJLoader.js - loads obj files
 - OrbitControls.js - handles the webgl 3d rotation for obj
