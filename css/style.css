@@ -19,10 +19,12 @@ body {
 .button {
   background-color: white;
   border: 0px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 5px;
+  font-size: 110%;
   font-weight: bold;
   cursor: pointer;
+  border:1px solid black;
 }
 
 .button:hover {
@@ -31,10 +33,15 @@ body {
   border: 0px;
 }
 
+.navbutton {
+  padding:10px;
+  font-size: 100%;
+}
+
 /* header */
 
 header {
-  background-color: #ef5350;
+  background-color: white;
   margin: 0;
 }
 
@@ -53,17 +60,26 @@ header {
 
 .logo {
   display:block;
-  width:130px;
-  height:40px;
+  width:186px;
+  height:69px;
   background-size: 270px 648.51px;
 }
 
 #sound-toggle {
   display: none;
 }
-
-/* main */
-
+/* Splash screen */ 
+.s-top {
+  width: 100%;
+  background: white;
+}
+.splashlogo {
+  margin:0 auto;
+  padding-top: 30px;
+  padding:10px;
+  width:186px;
+  height:69px;
+}
 #overlay {
   width: 100%;
   height: 100%;
@@ -77,8 +93,8 @@ header {
   position: fixed;
   top: 50%;
   left: 50%;
-  width:300px;
-  height: 250px;
+  width:100%;
+  height:100%;
   background: #e3e3e3;
   margin: auto;
   text-align: center;
@@ -89,7 +105,11 @@ header {
 
 #splash p {
   display: none;
+  padding:10px;
 }
+
+/*splash */
+/* main */
 
 #map {
   width: 100%;
@@ -279,10 +299,6 @@ header {
 }
 
 /*circular menu css*/
-
-
-
-
 .circular-menu {
     width: 250px;
     height: 250px;

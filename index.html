@@ -10,13 +10,15 @@
         <meta name="theme-color" content="#ef5350">
     </head>
     <body>
+
         <header>
           <div class="header-container">
-            <img class="logo" src="img/mq.png" alt="Macquarie University Logo">
-            <button id="sound-toggle">UNMUTE</button>
+            <img class="logo" src="img/mq-b.png" alt="Macquarie University Logo">
+            <button class="button" id="sound-toggle">UNMUTE</button>
             <button class="button" id="sound-toggle">MUTE</button>
           </div>
         </header>
+
         <main>
             <!--Call your modal-->
             <!-- http://joaopereirawd.github.io/animatedModal.js/ -->
@@ -57,12 +59,16 @@
           </div>
           <div id="overlay"></div>
           <div id = "splash">
-            <h3>Welcome to Pokemon Go 2.0</h3>
+            <div class="s-top">
+            <img class="logo splashlogo" src="img/mq-b.png" alt="Macquarie University Logo">
+            </div>
+            <h3>Augproject</h3>
+            <h4>The scavenger hunt for everyone!</h4>
             <button class="button" id="start">LET'S GO</button>
             <button class="button" id="augInfo">HOW IT WORKS</button>
-            <p>Simply walk around and try to find statues on MQ Campus. Step within 10 metres and you will see some information about the statue pop up.
-            </p>
+            <p>Simply walk around and try to find statues on MQ Campus. Step within 10 metres and you will see some information about the statue pop up.</p>
           </div>
+
           <div id="map-container">
             <div id="map"></div>
           </div>
@@ -78,8 +84,10 @@
               <h3></h3>
           </div>
         </main>
+
         <footer>
         </footer>
+
         <audio id="notification-sound">
             <source src="sounds/notificationSound.mp3" type="audio/mpeg">>
         </audio>
