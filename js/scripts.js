@@ -14,9 +14,7 @@ var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
 var soundButton = document.getElementById("sound-toggle");
 var userMarker = [];
-
-//testing dynamicly placed customer markers.
-var markerID = 100;
+var foundStatues = [];
 
 var noSleep = new NoSleep();
 
@@ -30,7 +28,7 @@ expiry.setTime(expiry.getTime() + (10 * 24 * 60 * 60 * 1000));
 //Returns an array of location names that have been found
 var foundLocationNames = checkCookie();
 //based on found location names, returns an array of found statue objects
-var foundStatues = removeFound(foundLocationNames, statues);
+foundStatues = removeFound(foundLocationNames, statues, foundStatues);
 //toggle for the mute button on header
 soundButton.onclick = function toggleSound() {
     if (audio.muted) {
@@ -120,12 +118,11 @@ CustomMarker.prototype.draw = function () {
         circleDiv.className = 'circle';
 
         var firstLink = document.createElement('a');
-        firstLink.className = "fa fa-home fa-2x";
+        firstLink.className = "fa fa-home fa-2x callInfo";
         firstLink.href = "#";
 
         var secondLink = document.createElement('a');
-        secondLink.className = "fa fa-home fa-2x";
-        secondLink.setAttribute("id", "tests");
+        secondLink.className = "fa fa-home fa-2x callObj";
         secondLink.href = "#animatedModal";
 
 
@@ -146,7 +143,8 @@ CustomMarker.prototype.draw = function () {
         }
 
         google.maps.event.addDomListener(div, "click", function (event) {
-            var items = div.querySelectorAll('.circle a');
+
+            var items = this.querySelectorAll('.circle a');
 
             for (var i = 0, l = items.length; i < l; i++) {
                 items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
@@ -154,9 +152,24 @@ CustomMarker.prototype.draw = function () {
                 items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
             }
 
-            document.querySelector('.menu-button').onclick = function (e) {
+            this.querySelector('.menu-button').onclick = function (e) {
                 e.preventDefault();
-                document.querySelector('.circle').classList.toggle('open');
+                this.parentNode.querySelector('.circle').classList.toggle('open');
+            }
+
+            this.querySelector('.callObj').onclick = function(e) {
+              e.preventDefault();
+              $('.callObj').animatedModal();
+              $("#animatedModal").removeClass("animatedModal-off").addClass("animatedModal-on").css({
+                "opacity": "1",
+                "z-index": "9999"
+              })
+            }
+
+            this.querySelector('.callInfo').onclick = function(e) {
+              e.preventDefault();
+              var targetId = self.args.marker_id;
+              locationDisplay(targetId);
             }
 
         })
@@ -254,27 +267,28 @@ function watchUserLocation(location) {
         for (var i = 0; i < statues.length; i++) {
             var target = new location(statues[i].latitude, statues[i].longitude);
             if (checkDistance(currentLoc, target) < 10) {
+                var markerID = statues[i].id;
                 notyMessage(statues[i]);
                 console.log('Congratulations, you are within 10m from the target');
                 audio.play();
                 displayInfo(statues[i]);
                 //add found locations name to array
-                foundLocationNames.push(statues[i].name)
+                foundLocationNames.push(statues[i].name);
                 //add found locations to foundStatues, and remove from statues
-                removeFound(foundLocationNames, statues, foundStatues);
+                foundStatues = removeFound(foundLocationNames, statues, foundStatues);
                 //saves cookie each time a location is found
                 saveCookie(foundLocationNames);
 
+
                 //creates a google maps LatLng object
+
                 var markerPos = new google.maps.LatLng(target.latitude, target.longitude);
                 overlay = new CustomMarker(
                     markerPos,
                     map, {
-                        marker_id: statues[i].id
+                        marker_id: markerID
                     }
                 );
-
-                markerID++;
             }
         }
 
@@ -294,12 +308,11 @@ function watchUserLocation(location) {
     id = navigator.geolocation.watchPosition(success, error, options);
 }
 
-
-//Selection for generated content.
-$(document).on('click', 'a#tests', function (event) {
-    //    event.preventDefault();
-    alert("It's Working");
-    $("#demo01").animatedModal();
-
-})
 $("#demo01").animatedModal();
+
+$(".close-animatedModal").click(function(){
+  $("#animatedModal").css({
+    "opacity": "0",
+    "z-index": "-9999"
+  })
+});

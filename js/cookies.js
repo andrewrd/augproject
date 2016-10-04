@@ -31,8 +31,7 @@ function saveCookie(saveArray) {
 }
 
 //removes all found locations from the statue array, adds them to the foundStatues array
-function removeFound(foundLocs, target) {
-    var foundStatues = [];
+function removeFound(foundLocs, target, foundStatues) {
     for (var i = 0; i < foundLocs.length; i++) {
         for (var k = 0; k < target.length; k++) {
             if (foundLocs[i] == target[k].name) {

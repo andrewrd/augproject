@@ -19,10 +19,12 @@ body {
 .button {
   background-color: white;
   border: 0px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 5px;
+  font-size: 110%;
   font-weight: bold;
   cursor: pointer;
+  border:1px solid black;
 }
 
 .button:hover {
@@ -32,10 +34,35 @@ body {
 }
 
 /*nav bar header */
+.navbutton {
+  padding:10px;
+  font-size: 100%;
+}
+
+/* header */
+
+header {
+  background-color: white;
+  margin: 0;
+}
+
+.header-container {
+  padding: 7px 15px 7px 15px;
+  margin: 0 auto 0 auto;
+  max-width: 900px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header-container h1 {
+  margin: 0;
+  display: inline;
+}
+
 .logo {
   display:block;
-  width:130px;
-  height:40px;
+  width:186px;
+  height:69px;
   background-size: 270px 648.51px;
 }
 
@@ -103,9 +130,18 @@ ul.topnav li.icon {display: none;}
     text-align: left;
   }
 }
-
-/* main */
-
+/* Splash screen */
+.s-top {
+  width: 100%;
+  background: white;
+}
+.splashlogo {
+  margin:0 auto;
+  padding-top: 30px;
+  padding:10px;
+  width:186px;
+  height:69px;
+}
 #overlay {
   width: 100%;
   height: 100%;
@@ -119,8 +155,8 @@ ul.topnav li.icon {display: none;}
   position: fixed;
   top: 50%;
   left: 50%;
-  width:300px;
-  height: 250px;
+  width:100%;
+  height:100%;
   background: #e3e3e3;
   margin: auto;
   text-align: center;
@@ -131,7 +167,11 @@ ul.topnav li.icon {display: none;}
 
 #splash p {
   display: none;
+  padding:10px;
 }
+
+/*splash */
+/* main */
 
 #map {
   width: 100%;
@@ -160,6 +200,16 @@ ul.topnav li.icon {display: none;}
 #notification-image img {
   margin: 0 auto;
   display: block;
+}
+
+#location-screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  visibility: hidden;
+  background-color: white;
 }
 
 .sk-circle {
@@ -311,10 +361,6 @@ ul.topnav li.icon {display: none;}
 }
 
 /*circular menu css*/
-
-
-
-
 .circular-menu {
     width: 250px;
     height: 250px;

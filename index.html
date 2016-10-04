@@ -10,10 +10,11 @@
         <meta name="theme-color" content="#ef5350">
     </head>
     <body>
+
         <header>
           <nav>
             <ul class="topnav" id="myTopnav">
-              <li><img class="logo" src = "img/mq.png" alt = "Macquarie University Logo"/></li>
+              <li><img class="logo" src = "img/mq-b.png" alt = "Macquarie University Logo"/></li>
               <li><a href="#">Settings</a></li>
               <li><a href="#">Found Locations</a></li>
               <li><a href="#">About</a></li>
@@ -24,6 +25,7 @@
             </ul>
           </nav>
         </header>
+
         <main>
             <!--Call your modal-->
             <!-- http://joaopereirawd.github.io/animatedModal.js/ -->
@@ -64,12 +66,16 @@
           </div>
           <div id="overlay"></div>
           <div id = "splash">
-            <h3>Welcome to Pokemon Go 2.0</h3>
+            <div class="s-top">
+            <img class="logo splashlogo" src="img/mq-b.png" alt="Macquarie University Logo">
+            </div>
+            <h3>Augproject</h3>
+            <h4>The scavenger hunt for everyone!</h4>
             <button class="button" id="start">LET'S GO</button>
             <button class="button" id="augInfo">HOW IT WORKS</button>
-            <p>Simply walk around and try to find statues on MQ Campus. Step within 10 metres and you will see some information about the statue pop up.
-            </p>
+            <p>Simply walk around and try to find statues on MQ Campus. Step within 10 metres and you will see some information about the statue pop up.</p>
           </div>
+
           <div id="map-container">
             <div id="map"></div>
           </div>
@@ -80,9 +86,15 @@
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium fermentum lacus eu porttitor. Aliquam malesuada nisi sit amet dolor ultricies accumsan. Nulla varius, nisi at tincidunt rhoncus, lacus augue elementum eros, ut venenatis justo nulla et tortor. Ut mattis ligula eget felis pharetra semper. Nam a velit eleifend, luctus odio vitae, hendrerit odio. Quisque interdum elit ut lectus euismod condimentum. Nullam ligula urna, sodales a lacus at, imperdiet posuere lacus. Vivamus sit amet nisl eu tortor finibus fringilla.</p>
             </div>
           </div>
+          <div id="location-screen">
+              <p id="location-return">Return to map view</p>
+              <h3></h3>
+          </div>
         </main>
+
         <footer>
         </footer>
+
         <audio id="notification-sound">
             <source src="sounds/notificationSound.mp3" type="audio/mpeg">>
         </audio>
@@ -92,7 +104,7 @@
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src = "noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
-        <script src="js/animatedModal.min.js"></script>
+        <script src="js/animatedModal.js"></script>
 
         <!--3d Javascript files needed-->
         <script type="text/javascript" src="js/Three.js"></script>
