@@ -66,6 +66,14 @@ header {
   background-size: 270px 648.51px;
 }
 
+.navlogo {
+  display:inline;
+}
+
+.n-button {
+
+}
+
 /* Remove margins and padding from the list, and add a black background color */
 ul.topnav {
     list-style-type: none;
@@ -76,14 +84,16 @@ ul.topnav {
 }
 
 /* Float the list items side by side */
-ul.topnav li {float: left;}
+ul.topnav li {
+  float: right;
+}
 
 /* Style the links inside the list items */
 ul.topnav li a {
     display: inline-block;
     color: #f2f2f2;
     text-align: center;
-    padding: 14px 16px;
+    padding: 30px 16px;
     text-decoration: none;
     transition: 0.3s;
     font-size: 17px;
@@ -102,7 +112,9 @@ ul.topnav li.icon {display: none;}
 
 /* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
 @media screen and (max-width:680px) {
-  ul.topnav li:not(:first-child) {display: none;}
+  ul.topnav li:not(:first-child) {
+    display: none;
+  }
   ul.topnav li.icon {
     float: right;
     display: inline-block;
@@ -115,7 +127,9 @@ ul.topnav li.icon {display: none;}
 
 /* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens */
 @media screen and (max-width:680px) {
-  ul.topnav.responsive {position: relative;}
+  ul.topnav.responsive {
+    position: relative;
+  }
   ul.topnav.responsive li.icon {
     position: absolute;
     right: 0;
@@ -128,6 +142,7 @@ ul.topnav li.icon {display: none;}
   ul.topnav.responsive li a {
     display: block;
     text-align: left;
+    padding: 15px;
   }
 }
 /* Splash screen */
