@@ -10,21 +10,16 @@
         <meta name="theme-color" content="#ef5350">
     </head>
     <body>
-
-        <header>
-          <nav>
-            <ul class="topnav" id="myTopnav">
-              <img class="logo navlogo" src = "img/mq-b.png" alt = "Macquarie University Logo"/>
-              <li><button class="button n-button" id="sound-toggle">MUTE</button></li>
-              <li><a href="#">Settings</a></li>
-              <li><a href="#">Found Locations</a></li>
-              <li><a href="#">About</a></li>
-              <li class="icon">
-                <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
-              </li>
-            </ul>
-          </nav>
-        </header>
+      <ul class="topnav" id="myTopnav">
+        <img class = "logo" src = "img/mq-b.png"/>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="#locations">Found Locations</a></li>
+        <li><a href="#about">About</a></li>
+        <li class = "muteButton"><button id="sound-toggle" class = "button">MUTE</button></li>
+        <li class="icon">
+          <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+        </li>
+      </ul>
 
         <main>
             <!--Call your modal-->
@@ -114,16 +109,7 @@
         <script type="text/javascript" src="js/Detector.js"></script>
         <script type="text/javascript" src="js/OrbitControls.js"></script>
         <script type="text/javascript" src="js/threeD.js"></script>
-        <script type = "text/javascript">
-        function myFunction() {
-          var x = document.getElementById("myTopnav");
-          if (x.className === "topnav") {
-              x.className += " responsive";
-          } else {
-              x.className = "topnav";
-          }
-        }
-        </script>
+        
         <script src = "nosleep/nosleep.js"></script>
 
         <script type="text/javascript" src="js/model.js"></script>
