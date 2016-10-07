@@ -9,6 +9,9 @@ function initMap(statues) {
 
         zoom: 20,
         center: myLatLng,
+        mapTypeControl: false,
+        zoomControl: false,
+        streetViewControl: false,
         styles: [
             {
                 "featureType": "landscape",
