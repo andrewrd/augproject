@@ -24,7 +24,7 @@ render();
 function init(){
     //Setup Camera
     camera =  new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
-    camera.position.z=3;
+    camera.position.z=300;
 
     //Create Scene
     scene = new THREE.Scene();
@@ -49,7 +49,15 @@ function init(){
     //Object loader
     var objLoader = new THREE.OBJLoader();
     objLoader.setPath('obj/');
-    objLoader.load('cube.obj', function(object){
+    objLoader.load('adult_scapula_low.obj', function(object){
+        var material = new THREE.MeshLambertMaterial({color: 0x666666});
+        
+        object.traverse( function ( child  ){
+            if(child instanceof THREE.Mesh){
+                child.material = material;
+            }
+        });
+        
         scene.add(object);
     });
 
