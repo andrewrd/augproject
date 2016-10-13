@@ -268,6 +268,7 @@ function watchUserLocation(location) {
             var target = new location(statues[i].latitude, statues[i].longitude);
             if (checkDistance(currentLoc, target) < 10) {
                 var markerID = statues[i].id;
+                //Noty launch section, triggers noty dependency
                 notyMessage(statues[i]);
                 console.log('Congratulations, you are within 10m from the target');
                 audio.play();
@@ -304,6 +305,7 @@ function watchUserLocation(location) {
          timeout: 5000,
          maximumAge: 0
     };
+    //Figure out whether to use this or remove. This wakes the GPS and keeps it on. 
     //wakeLock = window.navigator.requestWakeLock('gps');
     id = navigator.geolocation.watchPosition(success, error, options);
 }
@@ -318,6 +320,7 @@ function myFunction() {
   }
 }
 
+//Jquery dependency closes modal
 $("#demo01").animatedModal();
 
 $(".close-animatedModal").click(function(){
