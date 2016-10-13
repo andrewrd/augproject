@@ -188,6 +188,15 @@ ul.topnav li.muteButton {padding: 21px 16px;}
   background-color: white;
 }
 
+#location-return {
+  cursor:pointer;
+  text-decoration: underline;
+}
+
+#location-return:hover {
+  color: blue;
+}
+
 .sk-circle {
   margin: auto auto 20px;
   width: 40px;

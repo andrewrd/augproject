@@ -10,6 +10,7 @@ var myLatLng = {
     lng: 151.1126
 };
 //retrieves mute button id
+
 var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
 var soundButton = document.getElementById("sound-toggle");
@@ -17,8 +18,11 @@ var userMarker = [];
 var foundStatues = [];
 
 var noSleep = new NoSleep();
+//initialises noSleep which keeps the browser screen alive
+//while the page is active
 
 var map;
+//initialises the map variable for global scoping of map features
 
 expiry = new Date();
 //Date format = Days/hours/minutes/seconds/milliseconds
@@ -91,16 +95,17 @@ function checkDistance(gps1, gps2) {
     return distance; //Returns distance in metres
 }
 
-
+//custom map marker constructor
 function CustomMarker(latlng, map, args) {
     this.latlng = latlng;
     this.args = args;
     this.setMap(map);
 }
 
+//sets the overlayview that custom marker displays over
 CustomMarker.prototype = new google.maps.OverlayView();
 
-
+//function deals with how custom markers are drawn
 CustomMarker.prototype.draw = function () {
 
 
@@ -193,7 +198,7 @@ CustomMarker.prototype.draw = function () {
 
 
 
-
+//function to remove custom markers from the map
 CustomMarker.prototype.remove = function () {
     if (this.div) {
         this.div.parentNode.removeChild(this.div);
@@ -202,12 +207,12 @@ CustomMarker.prototype.remove = function () {
 
 }
 
-
+//get the position of the custom marker
 CustomMarker.prototype.getPosition = function () {
     return this.latlng;
 }
 
-
+//initialises the custom marker once the page loads
 google.maps.event.addDomListener(window, 'load', function() {map = initMap(foundStatues);});
 
 
