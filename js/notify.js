@@ -48,6 +48,7 @@ function locationDisplay(locationIndex){
 
     if (target != null || target != undefined) {
         document.getElementById("location-title").innerHTML = target.name;
+        document.getElementById("location-year").innerHTML = target.year;
         document.getElementById("location-desc").innerHTML = target.description;
 
     } else {

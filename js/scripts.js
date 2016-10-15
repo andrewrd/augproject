@@ -260,7 +260,8 @@ function watchUserLocation(location) {
         //creates a marker on the map at the users location
         var marker = new google.maps.Marker({
           position: myLatLng,
-          map: map
+          map: map,
+          icon: '/img/person-icon-2.png'
         });
 
         //stores this new marker in a global array,
@@ -310,7 +311,7 @@ function watchUserLocation(location) {
          timeout: 5000,
          maximumAge: 0
     };
-    //Figure out whether to use this or remove. This wakes the GPS and keeps it on. 
+    //Figure out whether to use this or remove. This wakes the GPS and keeps it on.
     //wakeLock = window.navigator.requestWakeLock('gps');
     id = navigator.geolocation.watchPosition(success, error, options);
 }
