@@ -235,10 +235,11 @@ function watchUserLocation(location) {
         var img = new Image();
         //img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=17&size=300x300&sensor=false&key=" + API_KEY;
 
-        var locationOutput = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
+//        var locationOutput = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
 
-        notifyUser("Located!", locationOutput, img);
-
+//        notifyUser("Located!", locationOutput, img);
+        console.log("Your location is Latitude: " + currentLoc.latitude+", Longitude: "+ currentLoc.longitude)
+        document.getElementById("notification-container").style.display = "none";
 
         myLatLng = {
             lat: pos.coords.latitude,
