@@ -13,7 +13,7 @@
       <ul class="topnav" id="myTopnav">
         <img class = "logo" src = "img/mq-b.png"/>
         <li><a href="#settings">Settings</a></li>
-        <li><a href="#locations">Found Locations</a></li>
+        <li><a href="#locations" onclick="openNav()">Found Locations</a></li>
         <li><a href="#about">About</a></li>
         <li class = "muteButton"><button id="sound-toggle" class = "button">MUTE</button></li>
         <li class="icon">
@@ -90,6 +90,20 @@
               <p><strong>Description:</strong> <span id="location-desc"></span></p>
 
           </div>
+          <!--Found Locations overlay screen-->
+          <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+              <a href = "#" id = "nameMenuItem">Name</a>
+              <a href="#" id = "statueMenuItem"><div class = "menuItem">Item</div></a>
+              <a href="#" id = "artifactMenuItem"><div class = "menuItem">Item 2</div></a>
+            </br>
+              <a href = "#" id = "nameMenuItem">Name</a>
+              <a href="#" id = "statueMenuItem"><div class = "menuItem">Item</div></a>
+              <a href="#" id = "artifactMenuItem"><div class = "menuItem">Item 2</div></a>
+            </div>
+          </div>
+
         </main>
 
         <footer>
@@ -98,7 +112,7 @@
         <audio id="notification-sound">
             <source src="sounds/notificationSound.mp3" type="audio/mpeg">>
         </audio>
-
+        
         <!--Google Map Api-->
         <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40"></script>
 
