@@ -123,11 +123,11 @@ CustomMarker.prototype.draw = function () {
         circleDiv.className = 'circle';
 
         var firstLink = document.createElement('a');
-        firstLink.className = "fa fa-home fa-2x callInfo";
+        firstLink.className = "fa fa-info-circle fa-2x callInfo";
         firstLink.href = "#";
 
         var secondLink = document.createElement('a');
-        secondLink.className = "fa fa-home fa-2x callObj";
+        secondLink.className = "fa fa-eye fa-2x callObj";
         secondLink.href = "#animatedModal";
 
 
