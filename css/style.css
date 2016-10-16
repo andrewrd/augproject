@@ -433,3 +433,23 @@ h1.author a {
 h1.author a:hover {
     color: #ddd;
 }
+
+#3dModel {
+    height: 100px;
+    width:100px;
+}
+
+.close-animatedModal {
+    float:right;
+}
+
+.closeanimatedModal {
+    background-color: white;
+    border: 0px;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 110%;
+    font-weight: bold;
+    cursor: pointer;
+    border:1px solid black;
+}

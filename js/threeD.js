@@ -23,7 +23,7 @@ render();
 
 function init(){
     //Setup Camera
-    camera =  new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
+    camera =  new THREE.PerspectiveCamera(45, window.innerWidth / (window.innerHeight/2), 1, 1000);
     camera.position.z=300;
 
     //Create Scene
@@ -64,11 +64,11 @@ function init(){
     //Renderer Settings
     renderer = new THREE.WebGLRenderer();
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight/2);
     renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
 
     //Where to insert our 3d scene
-    document.getElementById("modalContentId").appendChild(renderer.domElement);
+    document.getElementById("3dModel").appendChild(renderer.domElement);
 
     //Control Code
     controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -81,10 +81,10 @@ function init(){
 window.addEventListener('resize', onWindowResize, false);
 
 function onWindowResize(){
-	camera.aspect = window.innerWidth / window.innerHeight;
+	camera.aspect = window.innerWidth / (window.innerHeight/2);
 	camera.updateProjectionMatrix();
 	
-	renderer.setSize(window.innerWidth, window.innerHeight);
+	renderer.setSize(window.innerWidth, window.innerHeight/2);
 
 }
 
