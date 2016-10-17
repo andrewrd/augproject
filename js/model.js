@@ -15,13 +15,16 @@ function httpGet(theUrl)
 }
 
 //statue object to store statues in
-function statue(name, year, desc, lat, longi, id) {
+function statue(name, year, desc, lat, longi, id, question, answer) {
     this.name = name;
     this.year = year;
     this.description = desc;
     this.latitude = lat;
     this.longitude = longi;
     this.id = id;
+    //Question and answer
+    this.question = question;
+    this.answer = answer; 
 }
 
 //Prints output in json in console
@@ -70,6 +73,6 @@ var statues = [];
 var statueCounter = 0;
 //iterates over locations2, creates objects from the values and stores in statues
 for (var i = 0; i <locations2.length; i+=5) {
-  statues.push(new statue(locations2[i], locations2[i+1],locations2[i+2], locations2[i+3], locations2[i+4], statueCounter));
+  statues.push(new statue(locations2[i], locations2[i+1],locations2[i+2], locations2[i+3], locations2[i+4], statueCounter, locations2[i+5], locations2[i+6]));
   statueCounter++;
 }
