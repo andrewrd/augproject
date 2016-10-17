@@ -149,6 +149,12 @@ ul.topnav li.muteButton {padding: 21px 16px;}
 /*splash */
 /* main */
 
+
+/* question code */
+.question {
+  text-align:center;
+}
+/*end question code */
 #map {
   width: 100%;
   height: 100%;
