@@ -68,7 +68,7 @@ function init(){
     renderer.setClearColor(new THREE.Color("hsl(0, 0%, 10%)"));
 
     //Where to insert our 3d scene
-    document.getElementById("3dModel").appendChild(renderer.domElement);
+    document.getElementById("modelContainer").appendChild(renderer.domElement);
 
     //Control Code
     controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -93,3 +93,4 @@ function render(){
     requestAnimationFrame(render);
     renderer.render(scene, camera);
 }
+

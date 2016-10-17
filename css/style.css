@@ -434,10 +434,7 @@ h1.author a:hover {
     color: #ddd;
 }
 
-#3dModel {
-    height: 100px;
-    width:100px;
-}
+
 
 .close-animatedModal {
     float:right;
@@ -452,4 +449,23 @@ h1.author a:hover {
     font-weight: bold;
     cursor: pointer;
     border:1px solid black;
+}
+
+.infoContainer {
+  padding: 7px 15px 7px 15px;
+  margin: 10px auto 10px auto;
+  max-width: 900px;
+  background-color: #FAFAFA;
+  border: 1px solid #BCAAA4;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.info3dSubHeader {
+    text-align: center;
+}
+
+#modelContainer {
+    
+   
 }
