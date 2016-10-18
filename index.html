@@ -13,7 +13,7 @@
       <ul class="topnav" id="myTopnav">
         <img class = "logo" src = "img/mq-b.png"/>
         <li><a href="#settings">Settings</a></li>
-        <li><a href="#locations">Found Locations</a></li>
+        <li><a href="#locations" onclick="openNav()">Found Locations</a></li>
         <li><a href="#about">About</a></li>
         <li class = "muteButton"><button id="sound-toggle" class = "button">MUTE</button></li>
         <li class="icon">
@@ -85,12 +85,19 @@
             </div>
           </div>
           <div id="location-screen">
-              <p id="location-return">Return to map view</p>
+              <p id="location-return">Return</p>
               <h3 id="location-title"></h3>
               <p><strong>Year Established:</strong> <span id="location-year"></span></p>
               <p><strong>Description:</strong> <span id="location-desc"></span></p>
 
           </div>
+          <!--Found Locations overlay screen-->
+          <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+              
+            </div>
+
         </main>
 
         <footer>
