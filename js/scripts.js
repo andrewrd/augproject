@@ -286,7 +286,8 @@ function watchUserLocation(location) {
                 foundStatues = removeFound(foundLocationNames, statues, foundStatues);
                 //saves cookie each time a location is found
                 saveCookie(foundLocationNames);
-
+                //adds found locations to foundLocations menu
+                //printLocsMenu(foundStatues);
 
                 //creates a google maps LatLng object
 
@@ -326,6 +327,35 @@ function myFunction() {
       x.className = "topnav";
   }
 }
+
+//opens and closes the found locations overlay screen
+function openNav() {
+    document.getElementById("myNav").style.width = "100%";
+}
+
+function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+}
+
+//adds the found locations onto the FoundLocations menu overlay
+for (var i = foundStatues.length-1; i >= 0; i--) {
+  var foundStatueName = foundStatues[i].name;
+  var foundStatueID = foundStatues[i].id;
+  $( ".overlay-content" ).append("<a href = '#' id = 'nameMenuItem'>" + foundStatueName + "</a>");
+  $( ".overlay-content" ).append("<a href='#' id = 'statueMenuItem'><div class = 'menuItem' id = '" +foundStatueID+ "'>Statue Info</div></a>");
+  $( ".overlay-content" ).append("<a href='#animatedModal' id = 'artifactMenuItem'><div class = 'menuItem2 objView'>View Artifact</div></a><br/>");
+}
+
+//grabs the id of the FoundLocations menuItem and directs to its information page
+$('.menuItem').click(function() {
+  locationDisplay($(this).attr('id'));
+  //closeNav();
+});
+
+$('.objView').click(function() {
+  $(this).animatedModal();
+  alert('hello');
+});
 
 //Jquery dependency closes modal
 $("#demo01").animatedModal();
