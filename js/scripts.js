@@ -341,20 +341,19 @@ function closeNav() {
 for (var i = foundStatues.length-1; i >= 0; i--) {
   var foundStatueName = foundStatues[i].name;
   var foundStatueID = foundStatues[i].id;
-  $( ".overlay-content" ).append("<a href = '#' id = 'nameMenuItem'>" + foundStatueName + "</a>");
-  $( ".overlay-content" ).append("<a href='#' id = 'statueMenuItem'><div class = 'menuItem' id = '" +foundStatueID+ "'>Statue Info</div></a>");
-  $( ".overlay-content" ).append("<a href='#animatedModal' id = 'artifactMenuItem'><div class = 'menuItem2 objView'>View Artifact</div></a><br/>");
+  $( ".overlay-content" ).append("<a href = '#' class = 'nameMenuItem'>" + foundStatueName + "</a>");
+  $( ".overlay-content" ).append("<a href='#' class = 'statueMenuItem'><div class = 'menuItem statueItem' id = '" +foundStatueID+ "'>Statue Info.</div></a>");
+  $( ".overlay-content" ).append("<a href='#animatedModal' class = 'artifactMenuItem'><div class = 'menuItem'>View Artifact</div></a><br/>");
 }
 
 //grabs the id of the FoundLocations menuItem and directs to its information page
-$('.menuItem').click(function() {
+$('.statueItem').click(function() {
   locationDisplay($(this).attr('id'));
-  //closeNav();
 });
 
-$('.objView').click(function() {
+//opens artifact on foundLocations page
+$('.artifactMenuItem').click(function() {
   $(this).animatedModal();
-  alert('hello');
 });
 
 //Jquery dependency closes modal

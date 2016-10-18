@@ -59,7 +59,7 @@ body {
 }
 
 .menuItem {
-  background-color: #e3e3e3;
+  background-color: #AD1612;
   width: 300px;
 }
 
@@ -252,6 +252,7 @@ ul.topnav li.muteButton {padding: 21px 16px;}
   left: 0px;
   visibility: hidden;
   background-color: white;
+  z-index: 2;
 }
 
 #location-return {
@@ -526,6 +527,6 @@ h1.author a:hover {
 }
 
 #modelContainer {
-    
-   
+
+
 }
