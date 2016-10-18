@@ -343,12 +343,18 @@ for (var i = foundStatues.length-1; i >= 0; i--) {
   var foundStatueID = foundStatues[i].id;
   $( ".overlay-content" ).append("<a href = '#' id = 'nameMenuItem'>" + foundStatueName + "</a>");
   $( ".overlay-content" ).append("<a href='#' id = 'statueMenuItem'><div class = 'menuItem' id = '" +foundStatueID+ "'>Statue Info</div></a>");
+  $( ".overlay-content" ).append("<a href='#animatedModal' id = 'artifactMenuItem'><div class = 'menuItem2 objView'>View Artifact</div></a><br/>");
 }
 
 //grabs the id of the FoundLocations menuItem and directs to its information page
 $('.menuItem').click(function() {
   locationDisplay($(this).attr('id'));
-  closeNav();
+  //closeNav();
+});
+
+$('.objView').click(function() {
+  $(this).animatedModal();
+  alert('hello');
 });
 
 //Jquery dependency closes modal
