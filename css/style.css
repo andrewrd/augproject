@@ -16,13 +16,81 @@ body {
   overflow: hidden;
 }
 
+/* Found Locations Overlay */
+.overlay {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: rgb(0,0,0);
+    background-color: rgba(0,0,0, 0.9);
+    overflow-x: hidden;
+    transition: 0.5s;
+}
+
+.overlay-content {
+    position: relative;
+    top: 25%;
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.overlay a {
+    padding: 8px;
+    text-decoration: none;
+    font-size: 36px;
+    color: #818181;
+    display: inline-block;
+    transition: 0.3s;
+}
+
+.overlay a:hover, .overlay a:focus {
+    color: #f1f1f1;
+}
+
+.overlay .closebtn {
+    position: absolute;
+    top: 20px;
+    right: 45px;
+    font-size: 60px;
+}
+
+.menuItem {
+  background-color: #AD1612;
+  width: 300px;
+}
+
+@media screen and (max-height: 450px) {
+  .overlay a {font-size: 20px}
+  .overlay .closebtn {
+    font-size: 40px;
+    top: 15px;
+    right: 35px;
+  }
+}
+
+@media screen and (max-width: 753px) {
+  .menuItem {
+    margin: auto;
+  }
+  .overlay a {
+    display: block;
+  }
+
+}
+
 .button {
   background-color: white;
   border: 0px;
-  padding: 10px;
+  padding: 15px;
   border-radius: 5px;
+  font-size: 110%;
   font-weight: bold;
   cursor: pointer;
+  border:1px solid black;
 }
 
 .button:hover {
@@ -31,39 +99,91 @@ body {
   border: 0px;
 }
 
-/* header */
-
-header {
-  background-color: #ef5350;
-  margin: 0;
-}
-
-.header-container {
-  padding: 7px 15px 7px 15px;
-  margin: 0 auto 0 auto;
-  max-width: 900px;
-  display: flex;
-  justify-content: space-between;
-}
-
-.header-container h1 {
-  margin: 0;
-  display: inline;
-}
-
+/* nav bar header */
 .logo {
-  display:block;
-  width:130px;
-  height:40px;
-  background-size: 270px 648.51px;
+  display: inline;
+  padding: 10px 5px 10px 5px;
+  width: 190px;
 }
 
 #sound-toggle {
   display: none;
 }
 
-/* main */
+/* Remove margins and padding from the list, and add a black background color */
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #ef5350;
+}
 
+/* Float the list items side by side */
+ul.topnav li {float: right;}
+
+/* Style the links inside the list items */
+ul.topnav li a {
+    display: inline-block;
+    color: #f2f2f2;
+    text-align: center;
+    padding: 37px 16px;
+    text-decoration: none;
+    transition: 0.3s;
+    font-size: 17px;
+}
+
+/* Change background color of links on hover */
+ul.topnav li a:hover {background-color: #dc2d29;}
+
+/* Hide the list item that contains the link that should open and close the topnav on small screens */
+ul.topnav li.icon {display: none;}
+
+ul.topnav li.muteButton {padding: 21px 16px;}
+
+/* When the screen is less than 680 pixels wide, hide all list items, except for the first one ("Home"). Show the list item that contains the link to open and close the topnav (li.icon) */
+@media screen and (max-width:680px) {
+  ul.topnav li:not(:first-child) {display: none;}
+  ul.topnav li.icon {
+    float: right;
+    display: inline-block;
+
+  }
+}
+
+/* The "responsive" class is added to the topnav with JavaScript when the user clicks on the icon. This class makes the topnav look good on small screens */
+@media screen and (max-width:680px) {
+  ul.topnav.responsive {position: relative;}
+  ul.topnav.responsive li.icon {
+    position: absolute;
+    padding: 17px 16px;
+    right: 0;
+    top: 0;
+  }
+  ul.topnav.responsive li {
+    float: none;
+    display: inline;
+  }
+  ul.topnav.responsive li a {
+    display: block;
+    text-align: left;
+    padding: 17px 16px;
+  }
+  ul.topnav li.muteButton {padding: 21px 11px;}
+}
+
+/* Splash screen */
+.s-top {
+  width: 100%;
+  background: white;
+}
+.splashlogo {
+  margin:0 auto;
+  padding-top: 30px;
+  padding:10px;
+  width:186px;
+  height:69px;
+}
 #overlay {
   width: 100%;
   height: 100%;
@@ -77,8 +197,8 @@ header {
   position: fixed;
   top: 50%;
   left: 50%;
-  width:300px;
-  height: 250px;
+  width:100%;
+  height:100%;
   background: #e3e3e3;
   margin: auto;
   text-align: center;
@@ -89,8 +209,18 @@ header {
 
 #splash p {
   display: none;
+  padding:10px;
 }
 
+/*splash */
+/* main */
+
+
+/* question code */
+.question {
+  text-align:center;
+}
+/*end question code */
 #map {
   width: 100%;
   height: 100%;
@@ -120,6 +250,26 @@ header {
   display: block;
 }
 
+#location-screen {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  visibility: hidden;
+  background-color: white;
+  z-index: 2;
+}
+
+#location-return {
+  cursor:pointer;
+  text-decoration: underline;
+}
+
+#location-return:hover {
+  color: blue;
+}
+
 .sk-circle {
   margin: auto auto 20px;
   width: 40px;
@@ -146,13 +296,7 @@ header {
 }
 
 #location-container {
-  padding: 7px 15px 7px 15px;
-  margin: 10px auto 10px auto;
-  max-width: 900px;
-  background-color: #FAFAFA;
-  border: 1px solid #BCAAA4;
-  border-radius: 5px;
-  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+
   display: none;
 }
 
@@ -269,10 +413,6 @@ header {
 }
 
 /*circular menu css*/
-
-
-
-
 .circular-menu {
     width: 250px;
     height: 250px;
@@ -359,4 +499,40 @@ h1.author a {
 
 h1.author a:hover {
     color: #ddd;
+}
+
+
+
+.close-animatedModal {
+    float:right;
+}
+
+.closeanimatedModal {
+    background-color: white;
+    border: 0px;
+    padding: 15px;
+    border-radius: 5px;
+    font-size: 110%;
+    font-weight: bold;
+    cursor: pointer;
+    border:1px solid black;
+}
+
+.infoContainer {
+  padding: 7px 15px 7px 15px;
+  margin: 10px auto 10px auto;
+  max-width: 900px;
+  background-color: #FAFAFA;
+  border: 1px solid #BCAAA4;
+  border-radius: 5px;
+  box-shadow: 1px 1px 2px rgba(0,0,0,0.2);
+}
+
+.info3dSubHeader {
+    text-align: center;
+}
+
+#modelContainer {
+
+
 }

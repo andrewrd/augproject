@@ -9,6 +9,9 @@ function initMap(statues) {
 
         zoom: 20,
         center: myLatLng,
+        mapTypeControl: false,
+        zoomControl: false,
+        streetViewControl: false,
         styles: [
             {
                 "featureType": "landscape",
@@ -124,7 +127,7 @@ function initMap(statues) {
         overlay = new CustomMarker(
             thisLoc,
             map, {
-                marker_id: i
+                marker_id: statues[i].id
             }
         );
     }

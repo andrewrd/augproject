@@ -28,3 +28,36 @@ function displayInfo(theSculpture) {
     document.getElementById("location-container").getElementsByTagName("p")[1].innerHTML = theDesc;
     document.getElementById("location-container").style.display = "block";
 }
+
+function locationDisplay(locationIndex){
+    //displays the location information in a splash screen
+    //displays info based on the ID of the location passed
+    //This function is called in the scripts file as part of the marker generation
+    console.log("You are accessing locationIndex: "+locationIndex);
+    $("#location-screen").css({
+        "visibility": "visible"
+    })
+    //sets the location screen to visible
+
+    for (var i = 0; i < foundStatues.length; i++){
+        if (locationIndex == foundStatues[i].id) {
+            var target = foundStatues[i];
+        }
+    }
+    //searches for the information for the specified location
+
+    if (target != null || target != undefined) {
+        document.getElementById("location-title").innerHTML = target.name;
+        document.getElementById("location-year").innerHTML = target.year;
+        document.getElementById("location-desc").innerHTML = target.description;
+
+    } else {
+        console.log("Location "+locationIndex+" could not be found.");
+    }
+}
+
+$("#location-return").click(function(){
+    $("#location-screen").css({
+        "visibility": "hidden"
+    })
+})

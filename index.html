@@ -3,34 +3,37 @@
     <head>
         <meta charset="utf-8">
         <title>Augproject</title>
-        <link rel="stylesheet" type="text/css" href="css/font-awesome.css">
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
         <link rel="stylesheet" type="text/css" href="css/style.css">
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.2.0/animate.min.css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#ef5350">
     </head>
     <body>
-        <header>
-          <div class="header-container">
-            <img class="logo" src="img/mq.png" alt="Macquarie University Logo">
-            <button id="sound-toggle">UNMUTE</button>
-            <button class="button" id="sound-toggle">MUTE</button>
-          </div>
-        </header>
-        <main>
-            <!--Call your modal-->
-            <!-- http://joaopereirawd.github.io/animatedModal.js/ -->
-            <a id="demo01" href="#animatedModal">DEMO01</a>
+      <ul class="topnav" id="myTopnav">
+        <img class = "logo" src = "img/mq-b.png"/>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="#locations" onclick="openNav()">Found Locations</a></li>
+        <li><a href="#about">About</a></li>
+        <li class = "muteButton"><button id="sound-toggle" class = "button">MUTE</button></li>
+        <li class="icon">
+          <a href="javascript:void(0);" onclick="myFunction()">&#9776;</a>
+        </li>
+      </ul>
 
-            <!--DEMO01-->
+        <main>
             <div id="animatedModal">
                 <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
-                <div class="close-animatedModal">
+                <div class="close-animatedModal button">
                     CLOSE MODAL
                 </div>
 
                 <div class="modal-content" id="modalContentId">
                     <!--Your modal content goes here-->
+                    <div id="modelContainer"></div>
+                    <div class="infoContainer">
+                        <h3 class="info3dSubHeader">You Have Found XXX Artifact! It has now been added to your collection</h3>
+                    </div>
                 </div>
             </div>
 
@@ -57,25 +60,51 @@
           </div>
           <div id="overlay"></div>
           <div id = "splash">
-            <h3>Welcome to Pokemon Go 2.0</h3>
+            <div class="s-top">
+            <img class="logo splashlogo" src="img/mq-b.png" alt="Macquarie University Logo">
+            </div>
+            <h3>Augproject</h3>
+            <h4>The scavenger hunt for everyone!</h4>
             <button class="button" id="start">LET'S GO</button>
             <button class="button" id="augInfo">HOW IT WORKS</button>
-            <p>Simply walk around and try to find statues on MQ Campus. Step within 10 metres and you will see some information about the statue pop up.
-            </p>
+            <p>Simply walk around and try to find statues on MQ Campus. Step within 10 metres and you will see some information about the statue pop up.</p>
           </div>
+          
+          <div class="question">
+                <h1 class="answer"> What is the answer to this question? </h1>
+                <button class="button" id="true" value="T">TRUE</button>
+                <button class="button" id="false" value="F">FALSE</button>
+          </div>
+
           <div id="map-container">
             <div id="map"></div>
           </div>
-          <div id="location-container">
+          <div id="location-container" class="infoContainer">
             <h3>Placeholder Location Title</h3>
             <div class="location-text">
               <p>Location text will go here.</p>
               <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed pretium fermentum lacus eu porttitor. Aliquam malesuada nisi sit amet dolor ultricies accumsan. Nulla varius, nisi at tincidunt rhoncus, lacus augue elementum eros, ut venenatis justo nulla et tortor. Ut mattis ligula eget felis pharetra semper. Nam a velit eleifend, luctus odio vitae, hendrerit odio. Quisque interdum elit ut lectus euismod condimentum. Nullam ligula urna, sodales a lacus at, imperdiet posuere lacus. Vivamus sit amet nisl eu tortor finibus fringilla.</p>
             </div>
           </div>
+          <div id="location-screen">
+              <p id="location-return">Return</p>
+              <h3 id="location-title"></h3>
+              <p><strong>Year Established:</strong> <span id="location-year"></span></p>
+              <p><strong>Description:</strong> <span id="location-desc"></span></p>
+
+          </div>
+          <!--Found Locations overlay screen-->
+          <div id="myNav" class="overlay">
+            <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+            <div class="overlay-content">
+              
+            </div>
+
         </main>
+
         <footer>
         </footer>
+
         <audio id="notification-sound">
             <source src="sounds/notificationSound.mp3" type="audio/mpeg">>
         </audio>
@@ -85,7 +114,7 @@
 
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
         <script src = "noty/js/noty/packaged/jquery.noty.packaged.min.js"></script>
-        <script src="js/animatedModal.min.js"></script>
+        <script src="js/animatedModal.js"></script>
 
         <!--3d Javascript files needed-->
         <script type="text/javascript" src="js/Three.js"></script>

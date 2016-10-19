@@ -4,33 +4,35 @@ var API_KEY = 'AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40';
 var audio = document.getElementById("notification-sound");
 //sets audio to muted by default
 audio.muted = true;
+//Initialises the project location to macquarie university
+var myLatLng = {
+    lat: 33.7738,
+    lng: 151.1126
+};
 //retrieves mute button id
+
 var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
 var soundButton = document.getElementById("sound-toggle");
+var userMarker = [];
+var foundStatues = [];
 
 var noSleep = new NoSleep();
+//initialises noSleep which keeps the browser screen alive
+//while the page is active
 
 var map;
+//initialises the map variable for global scoping of map features
 
 expiry = new Date();
 //Date format = Days/hours/minutes/seconds/milliseconds
 //Sets expiry to 10 days from creation
 expiry.setTime(expiry.getTime() + (10 * 24 * 60 * 60 * 1000));
-//Initialises the project location to macquarie university
-var myLatLng = { lat:33.7738, lng: 151.1126 };
-//Icons used to overlay the map with custom images
-
-//Mutes and unmutes sound on click
-var myLatLng = {
-    lat: 33.7738,
-    lng: 151.1126
-};
 
 //Returns an array of location names that have been found
 var foundLocationNames = checkCookie();
 //based on found location names, returns an array of found statue objects
-var foundStatues = removeFound(foundLocationNames, statues);
+foundStatues = removeFound(foundLocationNames, statues, foundStatues);
 //toggle for the mute button on header
 soundButton.onclick = function toggleSound() {
     if (audio.muted) {
@@ -43,11 +45,13 @@ soundButton.onclick = function toggleSound() {
     }
 };
 
+
 //Starts the loading of the map and enables sound
 start.onclick = function startSound() {
     if (audio.muted) {
         watchUserLocation(location);
         document.getElementById("splash").style.display = "none";
+        $(".question").hide();
         audio.muted = false;
         audio.load();
         document.getElementById("map-container").style.visibility = "visible";
@@ -93,16 +97,17 @@ function checkDistance(gps1, gps2) {
     return distance; //Returns distance in metres
 }
 
-
+//custom map marker constructor
 function CustomMarker(latlng, map, args) {
     this.latlng = latlng;
     this.args = args;
     this.setMap(map);
 }
 
+//sets the overlayview that custom marker displays over
 CustomMarker.prototype = new google.maps.OverlayView();
 
-
+//function deals with how custom markers are drawn
 CustomMarker.prototype.draw = function () {
 
 
@@ -120,12 +125,11 @@ CustomMarker.prototype.draw = function () {
         circleDiv.className = 'circle';
 
         var firstLink = document.createElement('a');
-        firstLink.className = "fa fa-home fa-2x";
+        firstLink.className = "fa fa-info-circle fa-2x callInfo";
         firstLink.href = "#";
 
         var secondLink = document.createElement('a');
-        secondLink.className = "fa fa-home fa-2x";
-        secondLink.setAttribute("id", "tests");
+        secondLink.className = "fa fa-eye fa-2x callObj";
         secondLink.href = "#animatedModal";
 
 
@@ -146,7 +150,8 @@ CustomMarker.prototype.draw = function () {
         }
 
         google.maps.event.addDomListener(div, "click", function (event) {
-            var items = div.querySelectorAll('.circle a');
+
+            var items = this.querySelectorAll('.circle a');
 
             for (var i = 0, l = items.length; i < l; i++) {
                 items[i].style.left = (50 - 35 * Math.cos(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
@@ -154,9 +159,24 @@ CustomMarker.prototype.draw = function () {
                 items[i].style.top = (50 + 35 * Math.sin(-0.5 * Math.PI - 2 * (1 / l) * i * Math.PI)).toFixed(4) + "%";
             }
 
-            document.querySelector('.menu-button').onclick = function (e) {
+            this.querySelector('.menu-button').onclick = function (e) {
                 e.preventDefault();
-                document.querySelector('.circle').classList.toggle('open');
+                this.parentNode.querySelector('.circle').classList.toggle('open');
+            }
+
+            this.querySelector('.callObj').onclick = function(e) {
+              e.preventDefault();
+              $('.callObj').animatedModal();
+              $("#animatedModal").removeClass("animatedModal-off").addClass("animatedModal-on").css({
+                "opacity": "1",
+                "z-index": "9999"
+              })
+            }
+
+            this.querySelector('.callInfo').onclick = function(e) {
+              e.preventDefault();
+              var targetId = self.args.marker_id;
+              locationDisplay(targetId);
             }
 
         })
@@ -180,7 +200,7 @@ CustomMarker.prototype.draw = function () {
 
 
 
-
+//function to remove custom markers from the map
 CustomMarker.prototype.remove = function () {
     if (this.div) {
         this.div.parentNode.removeChild(this.div);
@@ -189,14 +209,13 @@ CustomMarker.prototype.remove = function () {
 
 }
 
-
+//get the position of the custom marker
 CustomMarker.prototype.getPosition = function () {
     return this.latlng;
 }
 
-
+//initialises the custom marker once the page loads
 google.maps.event.addDomListener(window, 'load', function() {map = initMap(foundStatues);});
-
 
 
 //Gets the users location using HTML5 geolocation, takes and watches if the target is near
@@ -217,33 +236,93 @@ function watchUserLocation(location) {
         var img = new Image();
         //img.src = "https://maps.googleapis.com/maps/api/staticmap?center=" + crd.latitude + "," + crd.longitude + "&zoom=17&size=300x300&sensor=false&key=" + API_KEY;
 
-        var locationOutput = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
+//        var locationOutput = '<p>Latitude is ' + currentLoc.latitude + '° <br>Longitude is ' + currentLoc.longitude + '°</p>';
 
-        notifyUser("Located!", locationOutput, img);
-
+//        notifyUser("Located!", locationOutput, img);
+        console.log("Your location is Latitude: " + currentLoc.latitude+", Longitude: "+ currentLoc.longitude)
+        document.getElementById("notification-container").style.display = "none";
 
         myLatLng = {
             lat: pos.coords.latitude,
             lng: pos.coords.longitude
         };
 
+        //centre the map on the users location
         map.panTo(myLatLng);
+
+        //this removes old user positon from the map
+        for (var i = 0; i < userMarker.length; i++) {
+          userMarker[i].setMap(null);
+        }
+
+        //clears the array of old user markers, as we dont need
+        //these once theyve been removed
+        userMarker = [];
+
+        //creates a marker on the map at the users location
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map,
+          icon: '/img/person-icon-2.png'
+        });
+
+        //stores this new marker in a global array,
+        //so it can be accessed anywhere
+        userMarker.push(marker);
 
 
         //Check current location against the statues array
         for (var i = 0; i < statues.length; i++) {
             var target = new location(statues[i].latitude, statues[i].longitude);
             if (checkDistance(currentLoc, target) < 10) {
+                var markerID = statues[i].id;
+
+                //Question code, may bug if near two statues at once, test this. 
+                var question = statues[i].question;
+                var answer = statues[i].answer;
+
+                $(".question").fadeIn();
+                document.getElementsByClassName('answer').innerHTML = statues[i].question;
+
+
+                if($("#true").click()){
+                    if("T"==statues[i].answer){
+                        $("#true").hide();
+                        $("#false").hide();
+                        document.getElementsByClassName('.answer').innerHTML += 'You chose correctly!';
+                        $(".question").hide(5000);
+                    }
+                    else {
+                        $("#true").hide();
+                        $("#false").hide();                        
+                        document.getElementsByClassName('.answer').innerHTML += 'You chose wrong!';
+                        $(".question").hide(5000);
+                    }
+                }
+
+                //Noty launch section, triggers noty dependency
                 notyMessage(statues[i]);
                 console.log('Congratulations, you are within 10m from the target');
                 audio.play();
                 displayInfo(statues[i]);
                 //add found locations name to array
-                foundLocationNames.push(statues[i].name)
-                    //add found locations to foundStatues, and remove from statues
-                removeFound(foundLocationNames, statues, foundStatues);
+                foundLocationNames.push(statues[i].name);
+                //add found locations to foundStatues, and remove from statues
+                foundStatues = removeFound(foundLocationNames, statues, foundStatues);
                 //saves cookie each time a location is found
                 saveCookie(foundLocationNames);
+                //adds found locations to foundLocations menu
+                //printLocsMenu(foundStatues);
+
+                //creates a google maps LatLng object
+
+                var markerPos = new google.maps.LatLng(target.latitude, target.longitude);
+                overlay = new CustomMarker(
+                    markerPos,
+                    map, {
+                        marker_id: markerID
+                    }
+                );
             }
         }
 
@@ -259,16 +338,57 @@ function watchUserLocation(location) {
          timeout: 5000,
          maximumAge: 0
     };
+    //Figure out whether to use this or remove. This wakes the GPS and keeps it on.
     //wakeLock = window.navigator.requestWakeLock('gps');
     id = navigator.geolocation.watchPosition(success, error, options);
 }
 
+//animates the expand & collapsing of mobile menu
+function myFunction() {
+  var x = document.getElementById("myTopnav");
+  if (x.className === "topnav") {
+      x.className += " responsive";
+  } else {
+      x.className = "topnav";
+  }
+}
 
-//Selection for generated content.
-$(document).on('click', 'a#tests', function (event) {
-    //    event.preventDefault();
-    alert("It's Working");
-    $("#demo01").animatedModal();
+//opens and closes the found locations overlay screen
+function openNav() {
+    document.getElementById("myNav").style.width = "100%";
+}
 
-})
+function closeNav() {
+    document.getElementById("myNav").style.width = "0%";
+}
+
+//adds the found locations onto the FoundLocations menu overlay
+for (var i = foundStatues.length-1; i >= 0; i--) {
+  var foundStatueName = foundStatues[i].name;
+  var foundStatueID = foundStatues[i].id;
+  $( ".overlay-content" ).append("<a href = '#' class = 'nameMenuItem'>" + foundStatueName + "</a>");
+  $( ".overlay-content" ).append("<a href='#' class = 'statueMenuItem'><div class = 'menuItem statueItem' id = '" +foundStatueID+ "'>Statue Info.</div></a>");
+  $( ".overlay-content" ).append("<a href='#animatedModal' class = 'artifactMenuItem'><div class = 'menuItem'>View Artifact</div></a><br/>");
+}
+
+//grabs the id of the FoundLocations menuItem and directs to its information page
+$('.statueItem').click(function() {
+  locationDisplay($(this).attr('id'));
+});
+
+//opens artifact on foundLocations page
+$('.artifactMenuItem').click(function() {
+  $(this).animatedModal();
+});
+
+//Jquery dependency closes modal
 $("#demo01").animatedModal();
+
+$(".close-animatedModal").click(function(){
+  $("#animatedModal").css({
+    "opacity": "0",
+    "z-index": "-9999"
+  })
+});
+
+
