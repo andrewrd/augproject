@@ -59,6 +59,7 @@ function createArrayLoc(){
         }
     }
     //Locations2 contains
+    console.log(locations2);
     return locations2;
     //this should return an array of values for each location
 }
