@@ -263,7 +263,7 @@ function watchUserLocation(location) {
         var marker = new google.maps.Marker({
           position: myLatLng,
           map: map,
-          icon: '/img/person-icon-2.png'
+          icon: 'augproject/img/person-icon-2.png'
         });
 
         //stores this new marker in a global array,
