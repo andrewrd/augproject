@@ -45,11 +45,13 @@ soundButton.onclick = function toggleSound() {
     }
 };
 
+
 //Starts the loading of the map and enables sound
 start.onclick = function startSound() {
     if (audio.muted) {
         watchUserLocation(location);
         document.getElementById("splash").style.display = "none";
+        $(".question").hide();
         audio.muted = false;
         audio.load();
         document.getElementById("map-container").style.visibility = "visible";
@@ -216,7 +218,6 @@ CustomMarker.prototype.getPosition = function () {
 google.maps.event.addDomListener(window, 'load', function() {map = initMap(foundStatues);});
 
 
-
 //Gets the users location using HTML5 geolocation, takes and watches if the target is near
 //Takes location object as input
 function watchUserLocation(location) {
@@ -275,6 +276,30 @@ function watchUserLocation(location) {
             var target = new location(statues[i].latitude, statues[i].longitude);
             if (checkDistance(currentLoc, target) < 10) {
                 var markerID = statues[i].id;
+
+                //Question code, may bug if near two statues at once, test this. 
+                var question = statues[i].question;
+                var answer = statues[i].answer;
+
+                $(".question").fadeIn();
+                document.getElementsByClassName('answer').innerHTML = statues[i].question;
+
+
+                if($("#true").click()){
+                    if("T"==statues[i].answer){
+                        $("#true").hide();
+                        $("#false").hide();
+                        document.getElementsByClassName('.answer').innerHTML += 'You chose correctly!';
+                        $(".question").hide(5000);
+                    }
+                    else {
+                        $("#true").hide();
+                        $("#false").hide();                        
+                        document.getElementsByClassName('.answer').innerHTML += 'You chose wrong!';
+                        $(".question").hide(5000);
+                    }
+                }
+
                 //Noty launch section, triggers noty dependency
                 notyMessage(statues[i]);
                 console.log('Congratulations, you are within 10m from the target');
@@ -365,3 +390,5 @@ $(".close-animatedModal").click(function(){
     "z-index": "-9999"
   })
 });
+
+
