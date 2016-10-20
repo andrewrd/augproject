@@ -9,7 +9,8 @@ var myLatLng = {
     lat: 33.7738,
     lng: 151.1126
 };
-//retrieves mute button id
+
+var checkRadius = 10;
 
 var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
@@ -276,7 +277,7 @@ function watchUserLocation(location) {
         //Check current location against the statues array
         for (var i = 0; i < statues.length; i++) {
             var target = new location(statues[i].latitude, statues[i].longitude);
-            if (checkDistance(currentLoc, target) < 10) {
+            if (checkDistance(currentLoc, target) < checkRadius) {
                 var markerID = statues[i].id;
 
                 //Question code, may bug if near two statues at once, test this.
