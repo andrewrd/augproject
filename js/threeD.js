@@ -49,7 +49,7 @@ function init(){
     //Object loader
     var objLoader = new THREE.OBJLoader();
     objLoader.setPath('obj/');
-    objLoader.load('cube.obj', function(object){
+    objLoader.load('WWII_AK772_TOY_PLANE_10k.obj', function(object){
         var material = new THREE.MeshLambertMaterial({color: 0x666666});
         
         object.traverse( function ( child  ){
