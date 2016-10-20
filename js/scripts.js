@@ -82,6 +82,8 @@ function toRad(Value) {
 //https://stackoverflow.com/questions/1502590/calculate-distance-between-two-points-in-google-maps-v3
 function checkDistance(gps1, gps2) {
     var R = 6378137; //Radius in metres
+    console.log(gps2);
+    console.log(gps1);
     var distLat = toRad(gps2.latitude - gps1.latitude);
     var distLong = toRad(gps2.longitude - gps1.longitude);
     var lat1 = toRad(gps1.latitude);
@@ -277,7 +279,7 @@ function watchUserLocation(location) {
             if (checkDistance(currentLoc, target) < 10) {
                 var markerID = statues[i].id;
 
-                //Question code, may bug if near two statues at once, test this. 
+                //Question code, may bug if near two statues at once, test this.
                 var question = statues[i].question;
                 var answer = statues[i].answer;
 
@@ -294,7 +296,7 @@ function watchUserLocation(location) {
                     }
                     else {
                         $("#true").hide();
-                        $("#false").hide();                        
+                        $("#false").hide();
                         document.getElementsByClassName('.answer').innerHTML += 'You chose wrong!';
                         $(".question").hide(5000);
                     }
@@ -390,5 +392,3 @@ $(".close-animatedModal").click(function(){
     "z-index": "-9999"
   })
 });
-
-

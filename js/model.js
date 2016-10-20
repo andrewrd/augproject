@@ -24,7 +24,7 @@ function statue(name, year, desc, lat, longi, id, question, answer) {
     this.id = id;
     //Question and answer
     this.question = question;
-    this.answer = answer; 
+    this.answer = answer;
 }
 
 //Prints output in json in console
@@ -70,10 +70,10 @@ createArrayLoc();
 //instantiates a new statues array to store data from googledoc as statue objects
 var statues = [];
 
-//To add in additional values, increment this section by a factor of 1 
+//To add in additional values, increment this section by a factor of 1
 var statueCounter = 0;
 //iterates over locations2, creates objects from the values and stores in statues
-for (var i = 0; i <locations2.length; i+=5) {
+for (var i = 0; i <locations2.length; i+=7) {
   statues.push(new statue(locations2[i], locations2[i+1],locations2[i+2], locations2[i+3], locations2[i+4], statueCounter, locations2[i+5], locations2[i+6]));
   statueCounter++;
 }
