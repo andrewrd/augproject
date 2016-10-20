@@ -314,6 +314,7 @@ function watchUserLocation(location) {
                 //saves cookie each time a location is found
                 saveCookie(foundLocationNames);
                 //adds found locations to foundLocations menu
+                populateFoundOverlay();
                 //printLocsMenu(foundStatues);
 
                 //creates a google maps LatLng object
@@ -365,26 +366,31 @@ function closeNav() {
 }
 
 //adds the found locations onto the FoundLocations menu overlay
-for (var i = foundStatues.length-1; i >= 0; i--) {
-  var foundStatueName = foundStatues[i].name;
-  var foundStatueID = foundStatues[i].id;
-  $( ".overlay-content" ).append("<a href = '#' class = 'nameMenuItem'>" + foundStatueName + "</a>");
-  $( ".overlay-content" ).append("<a href='#' class = 'statueMenuItem'><div class = 'menuItem statueItem' id = '" +foundStatueID+ "'>Statue Info.</div></a>");
-  $( ".overlay-content" ).append("<a href='#animatedModal' class = 'artifactMenuItem'><div class = 'menuItem'>View Artifact</div></a><br/>");
+function populateFoundOverlay() {
+  for (var i = foundStatues.length-1; i >= 0; i--) {
+    var foundStatueName = foundStatues[i].name;
+    var foundStatueID = foundStatues[i].id;
+    $( ".overlay-content" ).append("<a href = '#' class = 'nameMenuItem'>" + foundStatueName + "</a>");
+    $( ".overlay-content" ).append("<a href='#' class = 'statueMenuItem'><div class = 'menuItem statueItem' id = '" +foundStatueID+ "'>Statue Info.</div></a>");
+    $( ".overlay-content" ).append("<a href='#animatedModal' class = 'artifactMenuItem'><div class = 'menuItem'>View Artifact</div></a><br/>");
+  }
+  $('.statueItem').click(function() {
+    locationDisplay($(this).attr('id'));
+  });
+
+  //opens artifact on foundLocations page
+  $('.artifactMenuItem').click(function() {
+    $(this).animatedModal();
+  });
 }
 
 //grabs the id of the FoundLocations menuItem and directs to its information page
-$('.statueItem').click(function() {
-  locationDisplay($(this).attr('id'));
-});
-
-//opens artifact on foundLocations page
-$('.artifactMenuItem').click(function() {
-  $(this).animatedModal();
-});
 
 //Jquery dependency closes modal
 $("#demo01").animatedModal();
+
+//updates the found locations overlay
+populateFoundOverlay();
 
 $(".close-animatedModal").click(function(){
   $("#animatedModal").css({
