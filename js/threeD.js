@@ -49,7 +49,7 @@ function init(){
     //Object loader
     var objLoader = new THREE.OBJLoader();
     objLoader.setPath('obj/');
-    objLoader.load('adult_scapula_low.obj', function(object){
+    objLoader.load('cube.obj', function(object){
         var material = new THREE.MeshLambertMaterial({color: 0x666666});
         
         object.traverse( function ( child  ){
