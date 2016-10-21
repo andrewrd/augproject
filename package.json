@@ -1,0 +1,14 @@
+{
+  "name": "augproject",
+  "version": "1.0.0",
+  "description": "Augmented Reality Treasure Hunt Applicaiton",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "andrewrd, seanG7, Tuckmo, JunaidAhmad7",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.0"
+  }
+}
