@@ -238,6 +238,7 @@ ul.topnav li.muteButton {padding: 21px 16px;}
 }
 
 #notification-title {
+  font-size: 200%;
   text-align: center;
 }
 
@@ -259,15 +260,13 @@ ul.topnav li.muteButton {padding: 21px 16px;}
   visibility: hidden;
   background-color: white;
   z-index: 2;
+  text-align: center;
 }
 
 #location-return {
   cursor:pointer;
-  text-decoration: underline;
-}
-
-#location-return:hover {
-  color: blue;
+  width:50%;
+  margin:0 auto;
 }
 
 .sk-circle {

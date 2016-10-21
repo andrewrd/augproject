@@ -10,7 +10,7 @@ var myLatLng = {
     lng: 151.1126
 };
 
-var checkRadius = 10;
+var checkRadius = 20;
 
 var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
@@ -52,7 +52,6 @@ start.onclick = function startSound() {
     if (audio.muted) {
         watchUserLocation(location);
         document.getElementById("splash").style.display = "none";
-        $(".question").hide();
         audio.muted = false;
         audio.load();
         document.getElementById("map-container").style.visibility = "visible";
@@ -285,23 +284,36 @@ function watchUserLocation(location) {
                 var answer = statues[i].answer;
 
                 $(".question").fadeIn();
-                document.getElementsByClassName('answer').innerHTML = statues[i].question;
+                document.getElementById("answer").innerHTML = question;
+                console.log("glksdhxlkfjdklfjdkfjnkxglxddkjngxlfkgjdflkjglkdjflkdfjglkjs;l");
 
+                console.log(question);
 
-                if($("#true").click()){
-                    if("T"==statues[i].answer){
-                        $("#true").hide();
-                        $("#false").hide();
-                        document.getElementsByClassName('.answer').innerHTML += 'You chose correctly!';
-                        $(".question").hide(5000);
+                $("#true").click(function() {
+                    $("#true").hide();
+                    $("#false").hide();
+                    
+                    if("T"==answer){
+                        document.getElementById("answer").innerHTML = 'You chose correctly!';
+                    } else {
+                        document.getElementById("answer").innerHTML = 'You chose WRONG!';
+
                     }
-                    else {
-                        $("#true").hide();
-                        $("#false").hide();
-                        document.getElementsByClassName('.answer').innerHTML += 'You chose wrong!';
-                        $(".question").hide(5000);
+                    $(".question").fadeOut(5000);
+                });
+                
+                $("#false").click(function() {
+                    $("#true").hide();
+                    $("#false").hide();
+
+                    if("F"==answer) {
+                        document.getElementById("answer").innerHTML = 'You chose wrong!';
+                    } else {
+                        document.getElementById("answer").innerHTML = 'You chose WRONG!';
+
                     }
-                }
+                    $(".question").fadeOut(5000);
+                });
 
                 //Noty launch section, triggers noty dependency
                 notyMessage(statues[i]);
@@ -399,3 +411,5 @@ $(".close-animatedModal").click(function(){
     "z-index": "-9999"
   })
 });
+
+$(".question").hide();

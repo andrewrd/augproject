@@ -70,12 +70,6 @@
             <p>To start off, simply walk around the campus and look for statues. Once you get close to it, you will be notified of your accomplishment. Click on the markers on the map to find out about the statue, and the related artifact. Answer a question about the statue to earn points. You can view your found locations at any time from the Found Locations tab on the menu. Good luck, and stay safe.</p>
           </div>
 
-          <div class="question">
-                <h1 class="answer"> What is the answer to this question? </h1>
-                <button class="button" id="true" value="T">TRUE</button>
-                <button class="button" id="false" value="F">FALSE</button>
-          </div>
-
           <div id="map-container">
             <div id="map"></div>
           </div>
@@ -87,11 +81,15 @@
             </div>
           </div>
           <div id="location-screen">
-              <p id="location-return">Return</p>
-              <h3 id="location-title"></h3>
+              <div id="location-return" class="button">Return</div>
+              <h3 id="location-title">Statue Information</h3>           
               <p><strong>Year Established:</strong> <span id="location-year"></span></p>
               <p><strong>Description:</strong> <span id="location-desc"></span></p>
-
+              <div class="question">
+                    <h1 id="answer"> What is the answer to this question? </h1>
+                    <button class="button" id="true" value="T">TRUE</button>
+                    <button class="button" id="false" value="F">FALSE</button>
+              </div>
           </div>
           <!--Found Locations overlay screen-->
           <div id="myNav" class="overlay">
