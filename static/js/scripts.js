@@ -292,7 +292,7 @@ function watchUserLocation(location) {
                 $("#true").click(function() {
                     $("#true").hide();
                     $("#false").hide();
-                    
+
                     if("T"==answer){
                         document.getElementById("answer").innerHTML = 'You chose correctly!';
                     } else {
@@ -301,7 +301,7 @@ function watchUserLocation(location) {
                     }
                     $(".question").fadeOut(5000);
                 });
-                
+
                 $("#false").click(function() {
                     $("#true").hide();
                     $("#false").hide();
@@ -327,7 +327,7 @@ function watchUserLocation(location) {
                 //saves cookie each time a location is found
                 saveCookie(foundLocationNames);
                 //adds found locations to foundLocations menu
-                populateFoundOverlay();
+                updateFoundOverlay();
                 //printLocsMenu(foundStatues);
 
                 //creates a google maps LatLng object
@@ -397,13 +397,33 @@ function populateFoundOverlay() {
   });
 }
 
+//
+function updateFoundOverlay() {
+  var foundStatueName = foundStatues[foundStatues.length-1].name;
+  var foundStatueID = foundStatues[foundStatues.length-1].id;
+  $( ".overlay-content" ).append("<div class = 'nameMenuItem overlayStatueName'>" + foundStatueName + "</div>");
+  $( ".overlay-content" ).append("<a href='#' class = 'statueMenuItem'><div class = 'menuItem statueItem' id = '" +foundStatueID+ "'>Statue Info.</div></a>");
+  $( ".overlay-content" ).append("<a href='#animatedModal' class = 'artifactMenuItem'><div class = 'menuItem'>View Artifact</div></a><br/>");
+
+  $('.statueItem').click(function() {
+    locationDisplay($(this).attr('id'));
+  });
+
+  //opens artifact on foundLocations page
+  $('.artifactMenuItem').click(function() {
+    $(this).animatedModal();
+  });
+}
+
 //grabs the id of the FoundLocations menuItem and directs to its information page
 
 //Jquery dependency closes modal
 $("#demo01").animatedModal();
 
-//updates the found locations overlay
-populateFoundOverlay();
+//updates the found locations overlay if locations have been found
+if (foundStatues.length != 0) {
+  populateFoundOverlay();
+}
 
 $(".close-animatedModal").click(function(){
   $("#animatedModal").css({
