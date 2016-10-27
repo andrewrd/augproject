@@ -2,10 +2,6 @@
 This file is responsible for holding the rendering code for the 3d objects we will be using.
 The 3d rendering code will be inserted into the specified div, currently animatedModal.
 This scene also holds the controls for rotating around the object.
-
-
-//Initial code used from here:
-//https://manu.ninja/webgl-3d-model-viewer-using-three-js
 */
 
 if(!Detector.webgl){
@@ -13,10 +9,12 @@ if(!Detector.webgl){
 }
 
 var container;
-var camera, controls, scene, renderer;
+var camera, controls, scene, renderer, model;
 var lighting, ambient, keyLight, fillLight, backLight;
 var windowHalfX = window.innerWidth/2;
 var windowHalfY = window.innerHeight/2;
+
+
 
 init();
 render();
@@ -46,20 +44,8 @@ function init(){
     scene.add(fillLight);
     scene.add(backLight);
 
-    //Object loader
-    var objLoader = new THREE.OBJLoader();
-    objLoader.setPath('obj/');
-    objLoader.load('WWII_AK772_TOY_PLANE_10k.obj', function(object){
-        var material = new THREE.MeshLambertMaterial({color: 0x666666});
-        
-        object.traverse( function ( child  ){
-            if(child instanceof THREE.Mesh){
-                child.material = material;
-            }
-        });
-        
-        scene.add(object);
-    });
+    //Object loader    
+    addLocalObject('WWII_AK772_TOY_PLANE_full2.obj',"WWII_AK772_TOY_PLANE_tex.jpg");
 
     //Renderer Settings
     renderer = new THREE.WebGLRenderer();
@@ -81,10 +67,36 @@ function init(){
 window.addEventListener('resize', onWindowResize, false);
 
 function onWindowResize(){
-	camera.aspect = window.innerWidth / (window.innerHeight/2);
-	camera.updateProjectionMatrix();
-	
-	renderer.setSize(window.innerWidth, window.innerHeight/2);
+    camera.aspect = window.innerWidth / (window.innerHeight/2);
+    camera.updateProjectionMatrix();
+
+    renderer.setSize(window.innerWidth, window.innerHeight/2);
+
+}
+
+function addLocalObject(obj, mat){
+    model = new THREE.OBJLoader();
+
+    var texture = new THREE.ImageUtils.loadTexture("img/"+mat);
+    var material = new THREE.MeshBasicMaterial({
+        map: texture,
+        side:THREE.DoubleSide
+    });
+    model.setPath('obj/');
+    model.load(obj, function(object){
+        var material = new THREE.MeshPhongMaterial({
+            map: texture,
+            side:THREE.DoubleSide
+        });
+
+        object.traverse( function ( child  ){
+            if(child instanceof THREE.Mesh){
+                child.material = material;
+            }
+        });
+
+        scene.add(object);
+    });
 
 }
 

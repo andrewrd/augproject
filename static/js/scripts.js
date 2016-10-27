@@ -10,6 +10,17 @@ var myLatLng = {
     lng: 151.1126
 };
 
+//Sends a get request to the user, should be a callback but update this when possible
+function httpGet(theUrl)
+{
+    var xmlHttp = new XMLHttpRequest();
+    xmlHttp.open( "GET", theUrl, false ); // false for synchronous request
+    xmlHttp.send( null );
+    return xmlHttp.responseText;
+}
+
+
+
 var checkRadius = 20;
 
 var start = document.getElementById("start");
