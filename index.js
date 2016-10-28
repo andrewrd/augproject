@@ -1,9 +1,11 @@
 var express = require('express');
 var app = express();
+var request = require('hyperquest');
+
 app.use(express.static(__dirname + '/static'));
 
 app.get('/getmodels', function (req, res) {
-  res.send('Hello World!');
+	request('http://3d.ltc.mq.edu.au/3d/model/181/WWII_AK772_TOY_PLANE_10k.obj').pipe(process.stdout);
 });
 
 app.get('/',function(req,res){
@@ -17,9 +19,3 @@ app.listen(3000, function () {
 });
 
 
-
-
-var request = require('hyperquest');
-
-var req = request('http://3d.ltc.mq.edu.au/3d/model/181/WWII_AK772_TOY_PLANE_full2.obj');
-req.pipe(process.stdout);
