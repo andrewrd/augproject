@@ -45,7 +45,7 @@ function init(){
     scene.add(backLight);
 
     //Object loader    
-    addLocalObject('WWII_AK772_TOY_PLANE_full2.obj',"WWII_AK772_TOY_PLANE_tex.jpg");
+    addLocalObject('/getmodels',"WWII_AK772_TOY_PLANE_tex.jpg");
 
     //Renderer Settings
     renderer = new THREE.WebGLRenderer();
@@ -82,7 +82,7 @@ function addLocalObject(obj, mat){
         map: texture,
         side:THREE.DoubleSide
     });
-    model.setPath('obj/');
+    // model.setPath('obj/');
     model.load(obj, function(object){
         var material = new THREE.MeshPhongMaterial({
             map: texture,

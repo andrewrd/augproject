@@ -1,14 +1,22 @@
 var express = require('express');
 var app = express();
 var request = require('hyperquest');
+var wait = require('event-stream').wait;
 
 app.use(express.static(__dirname + '/static'));
 
-app.get('/getmodels/:name', function (req, res) {
+app.get('/getmodels', function (req, res) {
 	var name = req.params;
-	var rname = request('http://3d.ltc.mq.edu.au/3d/model/181/WWII_AK772_TOY_PLANE_10k.obj');
+	var answer = request.get('http://3d.ltc.mq.edu.au/3d/model/181/WWII_AK772_TOY_PLANE_10k.obj');
 	//Returns json response with name
-	res.send(name);
+	var obj;
+
+	answer.pipe(wait(function(err, data){
+	    obj = data;
+	    res.send(obj);
+	  }));
+
+
 });
 
 app.get('/',function(req,res){
