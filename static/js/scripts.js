@@ -296,7 +296,6 @@ function watchUserLocation(location) {
 
                 $(".question").fadeIn();
                 document.getElementById("answer").innerHTML = question;
-                console.log("glksdhxlkfjdklfjdkfjnkxglxddkjngxlfkgjdflkjglkdjflkdfjglkjs;l");
 
                 console.log(question);
 
