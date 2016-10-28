@@ -21,5 +21,5 @@ app.listen(3000, function () {
 
 var request = require('hyperquest');
 
-var req = request('http://3d.ltc.mq.edu.au/3d/model/MU_3069/MU_3069_final_10k.obj');
+var req = request('http://3d.ltc.mq.edu.au/3d/model/181/WWII_AK772_TOY_PLANE_full2.obj');
 req.pipe(process.stdout);
