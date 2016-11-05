@@ -7,7 +7,7 @@ app.use(express.static(__dirname + '/static'));
 
 app.get('/getmodels', function (req, res) {
 	var name = req.params;
-	var answer = request.get('http://3d.ltc.mq.edu.au/3d/model/181/WWII_AK772_TOY_PLANE_10k.obj');
+	var answer = request.get('http://3d.ltc.mq.edu.au/3d/model/181/WWII_AK772_TOY_PLANE_full2.obj');
 	//Returns json response with name
 	var obj;
 
@@ -15,8 +15,6 @@ app.get('/getmodels', function (req, res) {
 	    obj = data;
 	    res.send(obj);
 	  }));
-
-
 });
 
 app.get('/',function(req,res){
