@@ -11,4 +11,7 @@
   "dependencies": {
     "express": "^4.14.0"
   }
+  "scripts": {
+  "start": "node server.js"
+}
 }
