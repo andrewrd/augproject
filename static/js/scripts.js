@@ -411,7 +411,7 @@ function populateFoundOverlay() {
 function updateFoundOverlay() {
   var foundStatueName = foundStatues[foundStatues.length-1].name;
   var foundStatueID = foundStatues[foundStatues.length-1].id;
-  $( ".overlay-content" ).append("<div class = 'nameMenuItem overlayStatueName'>" + foundStatueName + "</div>");
+  $( ".overlay-content" ).append("<div class = 'overlayStatueName'>" + foundStatueName + "</div>");
   $( ".overlay-content" ).append("<a href='#' class = 'statueMenuItem'><div class = 'menuItem statueItem' id = '" +foundStatueID+ "'>Statue Info.</div></a>");
   $( ".overlay-content" ).append("<a href='#animatedModal' class = 'artifactMenuItem'><div class = 'menuItem'>View Artifact</div></a><br/>");
 

@@ -12,9 +12,7 @@
     <body>
       <ul class="topnav" id="myTopnav">
         <img class = "logo" src = "img/mq-b.png"/>
-        <li><a href="#settings">Settings</a></li>
         <li><a href="#locations" onclick="openNav()">Found Locations</a></li>
-        <li><a href="#about">About</a></li>
         <li class = "muteButton"><button id="sound-toggle" class = "button">MUTE</button></li>
         <li class="icon">
           <a href="javascript:void(0);" onclick="myFunction()"><i class="fa fa-bars" aria-hidden="true"></i></a>
@@ -24,9 +22,7 @@
         <main>
             <div id="animatedModal">
                 <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
-                <div class="close-animatedModal button">
-                    CLOSE MODAL
-                </div>
+                <a class="exit-btn close-animatedModal">&times;</a> 
 
                 <div class="modal-content" id="modalContentId">
                     <!--Your modal content goes here-->
