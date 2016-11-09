@@ -121,7 +121,6 @@ body {
 .button:hover {
   background-color: black;
   color: white;
-  border: 0px;
 }
 
 /* nav bar header */
