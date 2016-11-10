@@ -63,10 +63,6 @@ function foundStatueScore(foundStatues, totalStatues){
   $('#statueScore').html(foundStatues.length + " / " + totalStatues.length);
 }
 
-function questionScore(score, totalStatues){
-  $('#questionScore').html(score + " / " + totalStatues.length);
-}
-
 $("#location-return").click(function(){
     $("#location-screen").css({
         "visibility": "hidden"

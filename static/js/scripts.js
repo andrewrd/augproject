@@ -22,7 +22,7 @@ function httpGet(theUrl)
 
 
 
-var checkRadius = 10;
+var checkRadius = 100;
 
 var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
@@ -41,14 +41,6 @@ expiry = new Date();
 //Date format = Days/hours/minutes/seconds/milliseconds
 //Sets expiry to 10 days from creation
 expiry.setTime(expiry.getTime() + (10 * 24 * 60 * 60 * 1000));
-
-//gets score from the score cookie
-var score = parseInt(checkCookie('score')[0]);
-/*if the cookie is empty it returns an empty string,
-so we need to check for this and change it to 0 */
-if (isNaN(score)){score = 0};
-//log score for testing purposes
-console.log(score);
 
 //Returns an array of location names that have been found
 var foundLocationNames = checkCookie('foundLocations');
@@ -314,11 +306,6 @@ function watchUserLocation(location) {
 
                     if("T"==answer){
                         document.getElementById("answer").innerHTML = 'You chose correctly!';
-                        score+=1;
-                        questionScore(score, statues);
-                        var scoreArr = [];
-                        scoreArr.push(score);
-                        saveCookie('score', scoreArr);
                     } else {
                         document.getElementById("answer").innerHTML = 'You chose WRONG!';
 
@@ -332,11 +319,6 @@ function watchUserLocation(location) {
 
                     if("F"==answer) {
                         document.getElementById("answer").innerHTML = 'You chose wrong!';
-                        score+=1;
-                        questionScore(score, statues);
-                        var scoreArr = [];
-                        scoreArr.push(score);
-                        saveCookie('score', scoreArr);
                     } else {
                         document.getElementById("answer").innerHTML = 'You chose WRONG!';
 
