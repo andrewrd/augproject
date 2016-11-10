@@ -56,6 +56,10 @@ function locationDisplay(locationIndex){
     }
 }
 
+function foundStatueScore(foundStatues, totalStatues){
+  console.log(foundStatues.length + " / " + totalStatues.length);
+}
+
 $("#location-return").click(function(){
     $("#location-screen").css({
         "visibility": "hidden"
