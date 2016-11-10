@@ -38,6 +38,9 @@ function locationDisplay(locationIndex){
         "visibility": "visible"
     })
     //sets the location screen to visible
+    foundStatueScore(foundStatues, statues);
+    questionScore(score, statues);
+
 
     for (var i = 0; i < foundStatues.length; i++){
         if (locationIndex == foundStatues[i].id) {
@@ -57,7 +60,11 @@ function locationDisplay(locationIndex){
 }
 
 function foundStatueScore(foundStatues, totalStatues){
-  console.log(foundStatues.length + " / " + totalStatues.length);
+  $('#statueScore').html(foundStatues.length + " / " + totalStatues.length);
+}
+
+function questionScore(score, totalStatues){
+  $('#questionScore').html(score + " / " + totalStatues.length);
 }
 
 $("#location-return").click(function(){

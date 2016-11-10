@@ -2,6 +2,7 @@
 var API_KEY = 'AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40';
 //retrieves the audio element id
 var audio = document.getElementById("notification-sound");
+
 //sets audio to muted by default
 audio.muted = true;
 //Initialises the project location to macquarie university
@@ -41,8 +42,16 @@ expiry = new Date();
 //Sets expiry to 10 days from creation
 expiry.setTime(expiry.getTime() + (10 * 24 * 60 * 60 * 1000));
 
+//gets score from the score cookie
+var score = parseInt(checkCookie('score')[0]);
+/*if the cookie is empty it returns an empty string,
+so we need to check for this and change it to 0 */
+if (isNaN(score)){score = 0};
+//log score for testing purposes
+console.log(score);
+
 //Returns an array of location names that have been found
-var foundLocationNames = checkCookie();
+var foundLocationNames = checkCookie('foundLocations');
 //based on found location names, returns an array of found statue objects
 foundStatues = removeFound(foundLocationNames, statues, foundStatues);
 //toggle for the mute button on header
@@ -305,6 +314,11 @@ function watchUserLocation(location) {
 
                     if("T"==answer){
                         document.getElementById("answer").innerHTML = 'You chose correctly!';
+                        score+=1;
+                        questionScore(score, statues);
+                        var scoreArr = [];
+                        scoreArr.push(score);
+                        saveCookie('score', scoreArr);
                     } else {
                         document.getElementById("answer").innerHTML = 'You chose WRONG!';
 
@@ -318,10 +332,16 @@ function watchUserLocation(location) {
 
                     if("F"==answer) {
                         document.getElementById("answer").innerHTML = 'You chose wrong!';
+                        score+=1;
+                        questionScore(score, statues);
+                        var scoreArr = [];
+                        scoreArr.push(score);
+                        saveCookie('score', scoreArr);
                     } else {
                         document.getElementById("answer").innerHTML = 'You chose WRONG!';
 
                     }
+
                     $(".question").fadeOut(5000);
                 });
 
@@ -335,7 +355,7 @@ function watchUserLocation(location) {
                 //add found locations to foundStatues, and remove from statues
                 foundStatues = removeFound(foundLocationNames, statues, foundStatues);
                 //saves cookie each time a location is found
-                saveCookie(foundLocationNames);
+                saveCookie('foundLocations', foundLocationNames);
                 //adds found locations to foundLocations menu
                 updateFoundOverlay();
                 //printLocsMenu(foundStatues);

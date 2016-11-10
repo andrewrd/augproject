@@ -22,7 +22,7 @@
         <main>
             <div id="animatedModal">
                 <!--THIS IS IMPORTANT! to close the modal, the class name has to match the name given on the ID  class="close-animatedModal" -->
-                <a class="exit-btn close-animatedModal">&times;</a> 
+                <a class="exit-btn close-animatedModal">&times;</a>
 
                 <div class="modal-content" id="modalContentId">
                     <!--Your modal content goes here-->
@@ -85,6 +85,12 @@
                     <h1 id="answer"> What is the answer to this question? </h1>
                     <button class="button" id="true" value="T">TRUE</button>
                     <button class="button" id="false" value="F">FALSE</button>
+              </div>
+              <div id="scoreNotification">
+                <p><Strong>You have found:</strong></p>
+                <p><span id="statueScore"></span> statues</p>
+                <p><strong>You have answered:</strong></p>
+                <p><span id="questionScore"></span> questions correctly</p>
               </div>
           </div>
           <!--Found Locations overlay screen-->
