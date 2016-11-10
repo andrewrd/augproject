@@ -21,7 +21,7 @@ function httpGet(theUrl)
 
 
 
-var checkRadius = 20;
+var checkRadius = 10;
 
 var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
