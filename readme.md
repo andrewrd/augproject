@@ -1,11 +1,9 @@
 An augmented reality project intended to push the capabilities of HTML5 & Javascript. 
 
-#Live demo link
-```
-https://augprojectar.herokuapp.com/
-```
+#[Live Demo Link](https://augprojectar.herokuapp.com/)
 
-# Get started 
+
+## Get started 
 In order to run this project locally, you must run a localserver. You can do this by running a node server in the command line after navigating to the folder directory using: 
 
 Paste the below code into the command line: 
@@ -14,7 +12,7 @@ Paste the below code into the command line:
 node index.js
 ```
 
-# Folder Structure 
+## Folder Structure 
 
 This document will map out the location of each file on the project and it's purpose. 
 
