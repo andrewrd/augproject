@@ -1,6 +1,6 @@
 An augmented reality project intended to push the capabilities of HTML5 & Javascript. 
 
-#[Live Demo Link](https://augprojectar.herokuapp.com/)
+[Live Demo Link](https://augprojectar.herokuapp.com/)
 
 
 ## Get started 
