@@ -1,12 +1,17 @@
 An augmented reality project intended to push the capabilities of HTML5 & Javascript. 
 
+#Live demo link
+```
+https://augprojectar.herokuapp.com/
+```
+
 # Get started 
-In order to run this project locally, you must run a localserver. You can do this by running a python server in the command line after navigating to the folder directory using: 
+In order to run this project locally, you must run a localserver. You can do this by running a node server in the command line after navigating to the folder directory using: 
 
 Paste the below code into the command line: 
 
 ```
-python -m SimpleHTTPServer
+node index.js
 ```
 
 # Folder Structure 
