@@ -9,12 +9,13 @@
   "author": "andrewrd, seanG7, Tuckmo, JunaidAhmad7",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.14.0"
+    "express": "^4.14.0",
+    "hyperquest": "2.1.1"
   },
   "scripts": {
   "start": "node index.js"
   },
   "engines": {
-    "node": "4.1.1"
+    "node": "6.9.1"
   }
 }
