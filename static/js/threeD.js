@@ -82,7 +82,6 @@ function addLocalObject(obj, mat){
         map: texture,
         side:THREE.DoubleSide
     });
-    // model.setPath('obj/');
     model.load(obj, function(object){
         var material = new THREE.MeshPhongMaterial({
             map: texture,

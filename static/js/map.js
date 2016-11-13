@@ -99,6 +99,9 @@ function initMap(statues) {
                         "hue": "#00FF6A"
                     },
                     {
+                        "visibility": "off"  
+                    },
+                    {
                         "saturation": -1.0989010989011234
                     },
                     {

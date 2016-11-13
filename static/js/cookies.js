@@ -1,13 +1,14 @@
 //functions for returning cookie values and found statues
 
-function checkCookie(foundLocationNames) {
-    if (document.cookie.indexOf("foundLocations") >= 0) {
-        return getCookie("foundLocations").split(",");
+function checkCookie(cookieName) {
+    if (document.cookie.indexOf(cookieName) >= 0) {
+        return getCookie(cookieName).split(",");
     } else {
-        document.cookie = "foundLocations=; expires=" + expiry.toGMTString();
+        document.cookie = cookieName + "=; expires=" + expiry.toGMTString();
         return [];
     }
 }
+
 
 function getCookie(cname) {
     var name = cname + "=";
@@ -25,9 +26,9 @@ function getCookie(cname) {
 }
 
 //saves array into cookie
-function saveCookie(saveArray) {
+function saveCookie(cookieName, saveArray) {
     var cookieString = saveArray.join();
-    document.cookie = "foundLocations=" + cookieString + "; expires=" + expiry.toGMTString();
+    document.cookie = cookieName + "=" + cookieString + "; expires=" + expiry.toGMTString();
 }
 
 //removes all found locations from the statue array, adds them to the foundStatues array

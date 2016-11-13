@@ -2,6 +2,7 @@
 var API_KEY = 'AIzaSyAsJGvBskayVLIScXlb9WeCAypC9wGUf40';
 //retrieves the audio element id
 var audio = document.getElementById("notification-sound");
+
 //sets audio to muted by default
 audio.muted = true;
 //Initialises the project location to macquarie university
@@ -21,7 +22,7 @@ function httpGet(theUrl)
 
 
 
-var checkRadius = 20;
+var checkRadius = 100;
 
 var start = document.getElementById("start");
 var augInfo = document.getElementById("augInfo");
@@ -42,7 +43,7 @@ expiry = new Date();
 expiry.setTime(expiry.getTime() + (10 * 24 * 60 * 60 * 1000));
 
 //Returns an array of location names that have been found
-var foundLocationNames = checkCookie();
+var foundLocationNames = checkCookie('foundLocations');
 //based on found location names, returns an array of found statue objects
 foundStatues = removeFound(foundLocationNames, statues, foundStatues);
 //toggle for the mute button on header
@@ -322,6 +323,7 @@ function watchUserLocation(location) {
                         document.getElementById("answer").innerHTML = 'You chose WRONG!';
 
                     }
+
                     $(".question").fadeOut(5000);
                 });
 
@@ -335,7 +337,7 @@ function watchUserLocation(location) {
                 //add found locations to foundStatues, and remove from statues
                 foundStatues = removeFound(foundLocationNames, statues, foundStatues);
                 //saves cookie each time a location is found
-                saveCookie(foundLocationNames);
+                saveCookie('foundLocations', foundLocationNames);
                 //adds found locations to foundLocations menu
                 updateFoundOverlay();
                 //printLocsMenu(foundStatues);
@@ -393,7 +395,7 @@ function populateFoundOverlay() {
   for (var i = foundStatues.length-1; i >= 0; i--) {
     var foundStatueName = foundStatues[i].name;
     var foundStatueID = foundStatues[i].id;
-    $( ".overlay-content" ).append("<a href = '#' class = 'nameMenuItem'>" + foundStatueName + "</a>");
+    $( ".overlay-content" ).append("<div class = 'overlayStatueName'>" + foundStatueName + "</div>");
     $( ".overlay-content" ).append("<a href='#' class = 'statueMenuItem'><div class = 'menuItem statueItem' id = '" +foundStatueID+ "'>Statue Info.</div></a>");
     $( ".overlay-content" ).append("<a href='#animatedModal' class = 'artifactMenuItem'><div class = 'menuItem'>View Artifact</div></a><br/>");
   }
@@ -411,7 +413,7 @@ function populateFoundOverlay() {
 function updateFoundOverlay() {
   var foundStatueName = foundStatues[foundStatues.length-1].name;
   var foundStatueID = foundStatues[foundStatues.length-1].id;
-  $( ".overlay-content" ).append("<div class = 'nameMenuItem overlayStatueName'>" + foundStatueName + "</div>");
+  $( ".overlay-content" ).append("<div class = 'overlayStatueName'>" + foundStatueName + "</div>");
   $( ".overlay-content" ).append("<a href='#' class = 'statueMenuItem'><div class = 'menuItem statueItem' id = '" +foundStatueID+ "'>Statue Info.</div></a>");
   $( ".overlay-content" ).append("<a href='#animatedModal' class = 'artifactMenuItem'><div class = 'menuItem'>View Artifact</div></a><br/>");
 

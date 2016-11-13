@@ -38,6 +38,7 @@ function locationDisplay(locationIndex){
         "visibility": "visible"
     })
     //sets the location screen to visible
+    foundStatueScore(foundStatues, statues);
 
     for (var i = 0; i < foundStatues.length; i++){
         if (locationIndex == foundStatues[i].id) {
@@ -54,6 +55,10 @@ function locationDisplay(locationIndex){
     } else {
         console.log("Location "+locationIndex+" could not be found.");
     }
+}
+
+function foundStatueScore(foundStatues, totalStatues){
+  $('#statueScore').html(foundStatues.length + " / " + (totalStatues.length+foundStatues.length));
 }
 
 $("#location-return").click(function(){

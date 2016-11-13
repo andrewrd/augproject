@@ -71,6 +71,23 @@ body {
   width: 300px;
 }
 
+.exit-btn {
+  padding: 8px;
+  text-decoration: none;
+  color: #818181;
+  display: inline-block;
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  font-size: 60px;
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.exit-btn:hover, .exit-btn:focus {
+  color: #f1f1f1;
+}
+
 @media screen and (max-height: 450px) {
   .overlay a {font-size: 20px}
   .overlay .closebtn {
@@ -80,7 +97,7 @@ body {
   }
 }
 
-@media screen and (max-width: 753px) {
+@media screen and (max-width: 900px) {
   .menuItem {
     margin: auto;
   }
@@ -104,7 +121,6 @@ body {
 .button:hover {
   background-color: black;
   color: white;
-  border: 0px;
 }
 
 /* nav bar header */
